@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Когнитивные практики</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f5f5f5;
+            padding-bottom: 70px;
+        }
+
+        /* ========== НИЖНЯЯ ПАНЕЛЬ ========== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 20px 20px;
+            border-top: 1px solid #e5e5e5;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            background: none;
+            border: none;
+            font-size: 12px;
+            color: #999;
+            cursor: pointer;
+            padding: 5px 15px;
+            border-radius: 30px;
+            transition: 0.2s;
+        }
+
+        .nav-item.active {
+            color: #1e4a76;
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            font-size: 24px;
+        }
+
+        /* ========== ЭКРАНЫ ========== */
+        .screen {
+            display: none;
+            padding: 16px;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== КАРТОЧКИ ========== */
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 18px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: #1e4a76;
+        }
+
+        /* Профиль */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 70px;
+            height: 70px;
+            background: #1e4a76;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+        }
+
+        .stats {
+            flex: 1;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .level-badge {
+            background: #fbbf24;
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .xp-bar {
+            background: #e2e8f0;
+            border-radius: 20px;
+            height: 10px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+
+        .xp-fill {
+            background: #fbbf24;
+            height: 100%;
+            width: 0%;
+            border-radius: 20px;
+        }
+
+        /* Формы */
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        textarea {
+            min-height: 70px;
+            resize: vertical;
+        }
+
+        button {
+            background: #1e4a76;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-small {
+            background: #e2e8f0;
+            color: #1e4a76;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+        }
+
+        .mode-buttons {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .mode-tab {
+            background: #e2e8f0;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .mode-tab.active {
+            background: #1e4a76;
+            color: white;
+        }
+
+        .history-item {
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 14px;
+            margin-bottom: 8px;
+            font-size: 0.75rem;
+            border-left: 3px solid #fbbf24;
+        }
+
+        .empty {
+            text-align: center;
+            color: #999;
+            padding: 30px;
+        }
+
+        /* Блокнот */
+        .note-item {
+            background: #fef9e3;
+            padding: 12px;
+            border-radius: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .delete-note {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Уведомление */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 20px;
+            right: 20px;
+            background: #1e4a76;
+            color: #fbbf24;
+            text-align: center;
+            padding: 12px;
+            border-radius: 30px;
+            z-index: 200;
+            animation: fadeOut 1.5s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; transform: translateY(0); }
+            70% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- НИЖНЯЯ ПАНЕЛЬ -->
+<div class="bottom-nav">
+    <button class="nav-item active" data-screen="main">
+        <span class="nav-icon">📝</span>
+        <span>Главная</span>
+    </button>
+    <button class="nav-item" data-screen="notepad">
+        <span class="nav-icon">📓</span>
+        <span>Блокнот</span>
+    </button>
+    <button class="nav-item" data-screen="profile">
+        <span class="nav-icon">👤</span>
+        <span>Профиль</span>
+    </button>
+</div>
+
+<!-- ЭКРАН: ГЛАВНАЯ (запись таблиц) -->
+<div id="mainScreen" class="screen active">
+    <div class="card">
+        <h3>📝 Что хочешь записать?</h3>
+        <div class="mode-buttons" id="modeTabs">
+            <button class="mode-tab active" data-mode="cycle">🧠 Анализ цикла</button>
+            <button class="mode-tab" data-mode="attention">👁️ Внимание</button>
+            <button class="mode-tab" data-mode="dispute">⚖️ Оспаривание</button>
+            <button class="mode-tab" data-mode="cards">📇 Карточки</button>
+        </div>
+        <div id="formArea">
+            <!-- сюда подставится форма -->
+        </div>
+    </div>
+    <div class="card">
+        <h3>📜 Недавние записи</h3>
+        <div id="historyList">Загрузка...</div>
+    </div>
+</div>
+
+<!-- ЭКРАН: БЛОКНОТ -->
+<div id="notepadScreen" class="screen">
+    <div class="card">
+        <h3>📓 Мой блокнот</h3>
+        <textarea id="noteInput" placeholder="Что хочешь запомнить или записать..."></textarea>
+        <button id="addNoteBtn">➕ Добавить заметку</button>
+    </div>
+    <div class="card">
+        <h3>📌 Мои заметки</h3>
+        <div id="notesList">Загрузка...</div>
+    </div>
+</div>
+
+<!-- ЭКРАН: ПРОФИЛЬ -->
+<div id="profileScreen" class="screen">
+    <div class="card">
+        <div class="profile-header">
+            <div class="avatar">🧠</div>
+            <div class="stats">
+                <div class="stat-row">
+                    <span>🔥 <span id="profileXP">0</span> XP</span>
+                    <span class="level-badge" id="profileLevel">Ур. 1</span>
+                </div>
+                <div class="xp-bar">
+                    <div class="xp-fill" id="profileXpBar"></div>
+                </div>
+            </div>
+        </div>
+        <div class="stat-row">
+            <span>📅 Серия активности:</span>
+            <span><span id="streakCount">0</span> дней 🔥</span>
+        </div>
+        <div class="stat-row">
+            <span>📆 Всего активных дней:</span>
+            <span><span id="totalActiveDays">0</span> дней</span>
+        </div>
+        <div class="stat-row">
+            <span>📝 Всего заданий:</span>
+            <span><span id="totalTasks">0</span></span>
+        </div>
+    </div>
+    <div class="card">
+        <h3>🏆 Таблица уровней</h3>
+        <div id="levelsTable" style="font-size: 0.7rem; max-height: 250px; overflow-y: auto;"></div>
+    </div>
+</div>
+
+<script>
+    // ========== ТАБЛИЦА УРОВНЕЙ ==========
+    const levels = [
+        { level: 1, name: "Бронзовый ученик", totalXP: 100 },
+        { level: 2, name: "Серебряный новичок", totalXP: 300 },
+        { level: 3, name: "Золотой путешественник", totalXP: 1300 },
+        { level: 4, name: "Рубиновый болтун", totalXP: 2800 },
+        { level: 5, name: "Изумрудный рассказчик", totalXP: 5000 },
+        { level: 6, name: "Сапфировый писатель", totalXP: 8000 },
+        { level: 7, name: "Аметистовый полиглот", totalXP: 12500 },
+        { level: 8, name: "Жемчужный знаток", totalXP: 18500 },
+        { level: 9, name: "Огненный мастер", totalXP: 26500 },
+        { level: 10, name: "Легендарный носитель языка", totalXP: 36500 }
+    ];
+
+    // ========== ДАННЫЕ ==========
+    let userXP = 0;
+    let lastVisitDate = "";
+    let streak = 0;
+    let totalActiveDays = 0;
+    let totalTasks = 0;
+    
+    let storage = { cycle: [], attention: [], dispute: [], cards: [] };
+    let notes = [];
+
+    let currentMode = "cycle";
+
+    // ========== ЗАГРУЗКА / СОХРАНЕНИЕ ==========
+    function loadAll() {
+        userXP = parseInt(localStorage.getItem("userXP") || "0");
+        lastVisitDate = localStorage.getItem("lastVisitDate") || "";
+        streak = parseInt(localStorage.getItem("streak") || "0");
+        totalActiveDays = parseInt(localStorage.getItem("totalActiveDays") || "0");
+        totalTasks = parseInt(localStorage.getItem("totalTasks") || "0");
+        
+        const keys = ["cycle", "attention", "dispute", "cards"];
+        for (let k of keys) {
+            let raw = localStorage.getItem(`cbt_${k}`);
+            storage[k] = raw ? JSON.parse(raw) : [];
+        }
+        
+        let notesRaw = localStorage.getItem("notes");
+        notes = notesRaw ? JSON.parse(notesRaw) : [];
+    }
+
+    function saveAll() {
+        localStorage.setItem("userXP", userXP);
+        localStorage.setItem("lastVisitDate", lastVisitDate);
+        localStorage.setItem("streak", streak);
+        localStorage.setItem("totalActiveDays", totalActiveDays);
+        localStorage.setItem("totalTasks", totalTasks);
+        localStorage.setItem("notes", JSON.stringify(notes));
+        for (let k of Object.keys(storage)) {
+            localStorage.setItem(`cbt_${k}`, JSON.stringify(storage[k]));
+        }
+    }
+
+    // ========== СИСТЕМА СЕРИЙ ==========
+    function updateStreak() {
+        const today = new Date().toDateString();
+        if (lastVisitDate !== today) {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            if (lastVisitDate === yesterday.toDateString()) {
+                streak++;
+            } else {
+                streak = 1;
+            }
+            lastVisitDate = today;
+            totalActiveDays++;
+            saveAll();
+            showToast(`🔥 Серия: ${streak} дней!`);
+        }
+    }
+
+    // ========== ДОБАВЛЕНИЕ XP ==========
+    function addXP(amount) {
+        userXP += amount;
+        totalTasks++;
+        saveAll();
+        updateStreak();
+        updateProfileUI();
+        showToast(`+${amount} XP!`);
+        
+        // Проверка повышения уровня
+        const newLevel = getCurrentLevel();
+        const oldLevel = getCurrentLevelFromXP(userXP - amount);
+        if (newLevel > oldLevel) {
+            showToast(`🎉 НОВЫЙ УРОВЕНЬ! ${levels[newLevel-1].name} 🎉`, 2000);
+        }
+    }
+
+    function getCurrentLevel() {
+        let lvl = 1;
+        for (let i = 0; i < levels.length; i++) {
+            if (userXP >= levels[i].totalXP) lvl = levels[i].level;
+        }
+        return lvl;
+    }
+
+    function getCurrentLevelFromXP(xp) {
+        let lvl = 1;
+        for (let i = 0; i < levels.length; i++) {
+            if (xp >= levels[i].totalXP) lvl = levels[i].level;
+        }
+        return lvl;
+    }
+
+    function getXPToNext() {
+        const lvl = getCurrentLevel();
+        if (lvl >= 10) return 0;
+        return levels[lvl].totalXP - userXP;
+    }
+
+    function getXPInCurrent() {
+        const lvl = getCurrentLevel();
+        if (lvl === 1) return userXP;
+        const prevXP = levels[lvl-2]?.totalXP || 0;
+        return userXP - prevXP;
+    }
+
+    function getXPNeeded() {
+        const lvl = getCurrentLevel();
+        if (lvl === 1) return 100;
+        const prevXP = levels[lvl-2]?.totalXP || 0;
+        return levels[lvl-1].totalXP - prevXP;
+    }
+
+    // ========== UI ОБНОВЛЕНИЕ ==========
+    function updateProfileUI() {
+        const lvl = getCurrentLevel();
+        document.getElementById("profileXP").innerText = userXP;
+        document.getElementById("profileLevel").innerText = `Ур. ${lvl} ${levels[lvl-1].name}`;
+        document.getElementById("streakCount").innerText = streak;
+        document.getElementById("totalActiveDays").innerText = totalActiveDays;
+        document.getElementById("totalTasks").innerText = totalTasks;
+        
+        const percent = (getXPInCurrent() / getXPNeeded()) * 100;
+        document.getElementById("profileXpBar").style.width = `${Math.min(100, percent)}%`;
+        
+        // Таблица уровней
+        let html = "";
+        for (let l of levels) {
+            const isUnlocked = userXP >= l.totalXP;
+            html += `<div style="display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #eee;">
+                <span>${l.level}. ${l.name}</span>
+                <span>${isUnlocked ? "✅" : `🔒 ${l.totalXP} XP`}</span>
+            </div>`;
+        }
+        document.getElementById("levelsTable").innerHTML = html;
+    }
+
+    function showToast(msg, duration = 1500) {
+        const toast = document.createElement("div");
+        toast.className = "toast";
+        toast.innerText = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), duration);
+    }
+
+    // ========== ИСТОРИЯ ==========
+    function renderHistory() {
+        const entries = storage[currentMode];
+        const container = document.getElementById("historyList");
+        if (!entries.length) {
+            container.innerHTML = '<div class="empty">✨ Нет записей. Создайте первую</div>';
+            return;
+        }
+        let html = "";
+        for (let e of entries.slice(0, 10)) {
+            if (currentMode === "cycle") {
+                html += `<div class="history-item">📅 ${e.date}<br>📍 ${e.situation || "-"}<br>💭 ${e.thoughts || "-"}</div>`;
+            } else if (currentMode === "attention") {
+                html += `<div class="history-item">📅 ${e.date}<br>🧭 ${e.situation || "-"}<br>🔄 ${e.shift || "-"}</div>`;
+            } else if (currentMode === "dispute") {
+                html += `<div class="history-item">📅 ${e.date}<br>⚡ ${e.thought || "-"}<br>🌱 ${e.newThought || "-"}</div>`;
+            } else if (currentMode === "cards") {
+                html += `<div class="history-item">📅 ${e.date}<br>📇 ${e.front || "-"}<br>🔄 ${e.back || "-"}</div>`;
+            }
+        }
+        container.innerHTML = html;
+    }
+
+    // ========== ФОРМЫ ==========
+    function renderForm() {
+        const container = document.getElementById("formArea");
+        if (currentMode === "cycle") {
+            container.innerHTML = `
+                <input type="text" id="situation" placeholder="Ситуация (где, когда, с кем)">
+                <textarea id="thoughts" placeholder="Тревожные мысли"></textarea>
+                <textarea id="inner" placeholder="Внимание внутрь"></textarea>
+                <textarea id="behavior" placeholder="Защитное поведение"></textarea>
+                <textarea id="outcome" placeholder="Итог"></textarea>
+                <button id="saveBtn">💾 Сохранить (+20 XP)</button>
+            `;
+        } else if (currentMode === "attention") {
+            container.innerHTML = `
+                <input type="text" id="situation" placeholder="Ситуация">
+                <textarea id="innerFocus" placeholder="Внутренний фокус"></textarea>
+                <textarea id="outerFocus" placeholder="Внешний фокус"></textarea>
+                <textarea id="shift" placeholder="Что изменилось"></textarea>
+                <button id="saveBtn">💾 Сохранить (+20 XP)</button>
+            `;
+        } else if (currentMode === "dispute") {
+            container.innerHTML = `
+                <textarea id="thought" placeholder="Мысль"></textarea>
+                <input type="text" id="distortion" placeholder="Искажение">
+                <textarea id="questions" placeholder="Вопросы оспаривания"></textarea>
+                <textarea id="newThought" placeholder="Новая мысль"></textarea>
+                <button id="saveBtn">💾 Сохранить (+20 XP)</button>
+            `;
+        } else if (currentMode === "cards") {
+            container.innerHTML = `
+                <textarea id="front" placeholder="Лицевая сторона (мысль/вопрос)"></textarea>
+                <textarea id="back" placeholder="Обратная сторона (альтернатива)"></textarea>
+                <button id="saveBtn">➕ Добавить карточку (+20 XP)</button>
+            `;
+        }
+        document.getElementById("saveBtn")?.addEventListener("click", saveEntry);
+    }
+
+    function saveEntry() {
+        let data = {};
+        if (currentMode === "cycle") {
+            data = {
+                situation: document.getElementById("situation")?.value || "",
+                thoughts: document.getElementById("thoughts")?.value || "",
+                inner: document.getElementById("inner")?.value || "",
+                behavior: document.getElementById("behavior")?.value || "",
+                outcome: document.getElementById("outcome")?.value || ""
+            };
+        } else if (currentMode === "attention") {
+            data = {
+                situation: document.getElementById("situation")?.value || "",
+                innerFocus: document.getElementById("innerFocus")?.value || "",
+                outerFocus: document.getElementById("outerFocus")?.value || "",
+                shift: document.getElementById("shift")?.value || ""
+            };
+        } else if (currentMode === "dispute") {
+            data = {
+                thought: document.getElementById("thought")?.value || "",
+                distortion: document.getElementById("distortion")?.value || "",
+                questions: document.getElementById("questions")?.value || "",
+                newThought: document.getElementById("newThought")?.value || ""
+            };
+        } else if (currentMode === "cards") {
+            data = {
+                front: document.getElementById("front")?.value || "",
+                back: document.getElementById("back")?.value || ""
+            };
+        }
+        
+        const hasData = Object.values(data).some(v => v.trim());
+        if (!hasData) return alert("Заполните хотя бы одно поле");
+        
+        storage[currentMode].unshift({ id: Date.now(), date: new Date().toLocaleString(), ...data });
+        localStorage.setItem(`cbt_${currentMode}`, JSON.stringify(storage[currentMode]));
+        
+        addXP(20);
+        renderHistory();
+        renderForm();
+        
+        // Очистка
+        document.querySelectorAll("#formArea input, #formArea textarea").forEach(f => f.value = "");
+    }
+
+    // ========== БЛОКНОТ ==========
+    function renderNotes() {
+        const container = document.getElementById("notesList");
+        if (!notes.length) {
+            container.innerHTML = '<div class="empty">📭 Нет заметок. Добавьте первую</div>';
+            return;
+        }
+        let html = "";
+        for (let i = 0; i < notes.length; i++) {
+            html += `
+                <div class="note-item">
+                    <span>📝 ${escapeHtml(notes[i])}</span>
+                    <button class="delete-note" data-index="${i}">🗑️</button>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+        document.querySelectorAll(".delete-note").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const idx = parseInt(btn.dataset.index);
+                notes.splice(idx, 1);
+                saveAll();
+                renderNotes();
+            });
+        });
+    }
+
+    function addNote() {
+        const input = document.getElementById("noteInput");
+        if (input.value.trim()) {
+            notes.unshift(input.value.trim());
+            saveAll();
+            renderNotes();
+            input.value = "";
+            showToast("📌 Заметка сохранена");
+        }
+    }
+
+    function escapeHtml(str) {
+        if (!str) return "";
+        return str.replace(/[&<>]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[m]));
+    }
+
+    // ========== НАВИГАЦИЯ ==========
+    function switchScreen(screenId) {
+        document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+        document.getElementById(`${screenId}Screen`).classList.add("active");
+        document.querySelectorAll(".nav-item").forEach(btn => btn.classList.remove("active"));
+        document.querySelector(`.nav-item[data-screen="${screenId}"]`).classList.add("active");
+        
+        if (screenId === "profile") updateProfileUI();
+        if (screenId === "notepad") renderNotes();
+        if (screenId === "main") renderHistory();
+    }
+
+    // ========== ИНИЦИАЛИЗАЦИЯ ==========
+    loadAll();
+    updateStreak();
+    renderForm();
+    renderHistory();
+    updateProfileUI();
+    renderNotes();
+    
+    document.querySelectorAll(".nav-item").forEach(btn => {
+        btn.addEventListener("click", () => switchScreen(btn.dataset.screen));
+    });
+    
+    document.querySelectorAll(".mode-tab").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll(".mode-tab").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            currentMode = btn.dataset.mode;
+            renderForm();
+            renderHistory();
+        });
+    });
+    
+    document.getElementById("addNoteBtn")?.addEventListener("click", addNote);
+</script>
+</body>
+</html>
