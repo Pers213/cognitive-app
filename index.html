@@ -4,79 +4,326 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Когнитивные практики</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon.png">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; padding-bottom: 70px; }
-        
-        /* Нижняя панель */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 10px 20px 20px; border-top: 1px solid #e5e5e5; z-index: 100; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; background: none; border: none; font-size: 12px; color: #999; cursor: pointer; padding: 5px 15px; border-radius: 30px; }
-        .nav-item.active { color: #1e4a76; font-weight: 600; }
-        .nav-icon { font-size: 24px; }
-        
-        /* Экраны */
-        .screen { display: none; padding: 16px; animation: fadeIn 0.2s ease; }
-        .screen.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* Карточки */
-        .card { background: white; border-radius: 24px; padding: 18px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .card h3 { font-size: 1.1rem; margin-bottom: 12px; color: #1e4a76; display: flex; align-items: center; gap: 8px; }
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f5f5f5;
+            padding-bottom: 70px;
+        }
+
+        /* ========== НИЖНЯЯ ПАНЕЛЬ ========== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 20px 20px;
+            border-top: 1px solid #e5e5e5;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            background: none;
+            border: none;
+            font-size: 12px;
+            color: #999;
+            cursor: pointer;
+            padding: 5px 15px;
+            border-radius: 30px;
+            transition: 0.2s;
+        }
+
+        .nav-item.active {
+            color: #1e4a76;
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            font-size: 24px;
+        }
+
+        /* ========== ЭКРАНЫ ========== */
+        .screen {
+            display: none;
+            padding: 16px;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== КАРТОЧКИ ========== */
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 18px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: #1e4a76;
+        }
+
+        .card h4 {
+            font-size: 0.95rem;
+            margin: 12px 0 8px;
+            color: #334155;
+        }
+
         /* Профиль */
-        .profile-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
-        .avatar { width: 70px; height: 70px; background: #1e4a76; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; overflow: hidden; cursor: pointer; }
-        .avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .stats { flex: 1; }
-        .stat-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
-        .level-badge { background: #fbbf24; padding: 6px 12px; border-radius: 30px; font-weight: bold; font-size: 0.8rem; }
-        .xp-bar { background: #e2e8f0; border-radius: 20px; height: 10px; margin: 8px 0; overflow: hidden; }
-        .xp-fill { background: #fbbf24; height: 100%; width: 0%; border-radius: 20px; }
-        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 70px;
+            height: 70px;
+            background: #1e4a76;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+        }
+
+        .stats {
+            flex: 1;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .level-badge {
+            background: #fbbf24;
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .xp-bar {
+            background: #e2e8f0;
+            border-radius: 20px;
+            height: 10px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+
+        .xp-fill {
+            background: #fbbf24;
+            height: 100%;
+            width: 0%;
+            border-radius: 20px;
+        }
+
         /* Формы */
-        input, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 16px; margin-bottom: 12px; font-family: inherit; font-size: 0.9rem; }
-        textarea { min-height: 70px; resize: vertical; }
-        button { background: #1e4a76; color: white; border: none; padding: 12px 20px; border-radius: 30px; font-weight: 600; cursor: pointer; }
-        .mode-buttons { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
-        .mode-tab { background: #e2e8f0; border: none; padding: 6px 14px; border-radius: 30px; font-size: 0.75rem; cursor: pointer; }
-        .mode-tab.active { background: #1e4a76; color: white; }
-        
-        /* История с кнопкой удаления */
-        .history-item { background: #f8fafc; padding: 10px; border-radius: 14px; margin-bottom: 8px; font-size: 0.75rem; border-left: 3px solid #fbbf24; display: flex; justify-content: space-between; align-items: center; }
-        .history-content { flex: 1; }
-        .delete-history-btn { background: #dc2626; border: none; color: white; font-size: 14px; cursor: pointer; padding: 5px 10px; border-radius: 20px; margin-left: 8px; }
-        
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        textarea {
+            min-height: 70px;
+            resize: vertical;
+        }
+
+        button {
+            background: #1e4a76;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-small {
+            background: #e2e8f0;
+            color: #1e4a76;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+        }
+
+        .mode-buttons {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .mode-tab {
+            background: #e2e8f0;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .mode-tab.active {
+            background: #1e4a76;
+            color: white;
+        }
+
+        .history-item {
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 14px;
+            margin-bottom: 8px;
+            font-size: 0.75rem;
+            border-left: 3px solid #fbbf24;
+        }
+
+        .empty {
+            text-align: center;
+            color: #999;
+            padding: 30px;
+        }
+
         /* Блокнот */
-        .note-item { background: #fef9e3; padding: 12px; border-radius: 16px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        .delete-note { background: none; border: none; font-size: 18px; cursor: pointer; padding: 5px; }
-        
-        /* ИИ чат */
-        .chat-messages { max-height: 400px; overflow-y: auto; margin-bottom: 12px; }
-        .message { padding: 10px; margin: 5px 0; border-radius: 16px; max-width: 85%; }
-        .message.user { background: #1e4a76; color: white; align-self: flex-end; margin-left: auto; text-align: right; }
-        .message.ai { background: #e2e8f0; color: #1e4a76; }
-        .chat-input-area { display: flex; gap: 8px; margin-top: 12px; }
-        .chat-input-area input { flex: 1; margin-bottom: 0; }
-        .analyze-btn { background: #fbbf24; color: #1e4a76; font-size: 0.8rem; padding: 8px 12px; }
-        
-        .toast { position: fixed; bottom: 100px; left: 20px; right: 20px; background: #1e4a76; color: #fbbf24; text-align: center; padding: 12px; border-radius: 30px; z-index: 200; animation: fadeOut 1.5s forwards; }
-        @keyframes fadeOut { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
-        
-        .empty { text-align: center; color: #999; padding: 30px; }
-        .loading { text-align: center; color: #1e4a76; padding: 20px; }
+        .note-item {
+            background: #fef9e3;
+            padding: 12px;
+            border-radius: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .delete-note {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Уведомление */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 20px;
+            right: 20px;
+            background: #1e4a76;
+            color: #fbbf24;
+            text-align: center;
+            padding: 12px;
+            border-radius: 30px;
+            z-index: 200;
+            animation: fadeOut 1.5s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; transform: translateY(0); }
+            70% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        /* ========== ЛУКСМАКСИНГ ========== */
+        .exercise-item {
+            background: #f0f9ff;
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+
+        .exercise-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #1e4a76;
+        }
+
+        .exercise-desc {
+            font-size: 0.8rem;
+            color: #475569;
+            margin: 6px 0;
+        }
+
+        .timer-display {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .timer-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .warning-list {
+            background: #fef2f2;
+            padding: 12px;
+            border-radius: 16px;
+            margin-top: 10px;
+        }
+
+        .warning-item {
+            color: #dc2626;
+            font-size: 0.8rem;
+            padding: 4px 0;
+        }
     </style>
 </head>
 <body>
 
-<!-- Нижняя панель (4 кнопки) -->
+<!-- НИЖНЯЯ ПАНЕЛЬ -->
 <div class="bottom-nav">
-    <button class="nav-item active" data-screen="main"><span class="nav-icon">📝</span><span>Главная</span></button>
-    <button class="nav-item" data-screen="notepad"><span class="nav-icon">📓</span><span>Блокнот</span></button>
-    <button class="nav-item" data-screen="ai"><span class="nav-icon">🤖</span><span>ИИ</span></button>
-    <button class="nav-item" data-screen="profile"><span class="nav-icon">👤</span><span>Профиль</span></button>
+    <button class="nav-item active" data-screen="main">
+        <span class="nav-icon">📝</span>
+        <span>Главная</span>
+    </button>
+    <button class="nav-item" data-screen="notepad">
+        <span class="nav-icon">📓</span>
+        <span>Блокнот</span>
+    </button>
+    <button class="nav-item" data-screen="profile">
+        <span class="nav-icon">👤</span>
+        <span>Профиль</span>
+    </button>
 </div>
 
-<!-- ========== ГЛАВНАЯ ========== -->
+<!-- ЭКРАН: ГЛАВНАЯ (запись таблиц + люксмаксинг) -->
 <div id="mainScreen" class="screen active">
     <div class="card">
         <h3>📝 Что хочешь записать?</h3>
@@ -85,65 +332,58 @@
             <button class="mode-tab" data-mode="attention">👁️ Внимание</button>
             <button class="mode-tab" data-mode="dispute">⚖️ Оспаривание</button>
             <button class="mode-tab" data-mode="cards">📇 Карточки</button>
+            <button class="mode-tab" data-mode="looksmax">💪 Луксмаксинг</button>
         </div>
-        <div id="formArea"></div>
+        <div id="formArea">
+            <!-- сюда подставится форма -->
+        </div>
     </div>
     <div class="card">
         <h3>📜 Недавние записи</h3>
-        <div id="historyList"></div>
+        <div id="historyList">Загрузка...</div>
     </div>
 </div>
 
-<!-- ========== БЛОКНОТ ========== -->
+<!-- ЭКРАН: БЛОКНОТ -->
 <div id="notepadScreen" class="screen">
     <div class="card">
         <h3>📓 Мой блокнот</h3>
-        <textarea id="noteInput" placeholder="Что хочешь запомнить..."></textarea>
+        <textarea id="noteInput" placeholder="Что хочешь запомнить или записать..."></textarea>
         <button id="addNoteBtn">➕ Добавить заметку</button>
     </div>
     <div class="card">
         <h3>📌 Мои заметки</h3>
-        <div id="notesList"></div>
+        <div id="notesList">Загрузка...</div>
     </div>
 </div>
 
-<!-- ========== ИИ ПОМОЩНИК ========== -->
-<div id="aiScreen" class="screen">
-    <div class="card">
-        <h3>🤖 ИИ помощник (DeepSeek)</h3>
-        <div class="chat-messages" id="chatMessages">
-            <div class="message ai">👋 Привет! Я помогу проанализировать твои записи. Выбери запись из истории или просто задай вопрос.</div>
-        </div>
-        <div style="margin-bottom: 10px;">
-            <select id="historySelect" style="width: 100%; padding: 8px; border-radius: 16px;">
-                <option value="">📋 Выбери запись для анализа...</option>
-            </select>
-        </div>
-        <div class="chat-input-area">
-            <input type="text" id="chatInput" placeholder="Спроси что-то у ИИ...">
-            <button id="sendChatBtn">📤</button>
-        </div>
-        <button id="analyzeSelectedBtn" class="analyze-btn" style="width: 100%; margin-top: 8px;">🔍 Проанализировать выбранную запись</button>
-    </div>
-</div>
-
-<!-- ========== ПРОФИЛЬ ========== -->
+<!-- ЭКРАН: ПРОФИЛЬ -->
 <div id="profileScreen" class="screen">
     <div class="card">
         <div class="profile-header">
-            <div class="avatar" id="avatarClick">
-                <img id="avatarImg" src="" alt="avatar">
-                <span id="avatarPlaceholder">🧠</span>
-            </div>
+            <div class="avatar">🧠</div>
             <div class="stats">
-                <div class="stat-row"><span>🔥 <span id="profileXP">0</span> XP</span><span class="level-badge" id="profileLevel">Ур. 1</span></div>
-                <div class="xp-bar"><div class="xp-fill" id="profileXpBar"></div></div>
+                <div class="stat-row">
+                    <span>🔥 <span id="profileXP">0</span> XP</span>
+                    <span class="level-badge" id="profileLevel">Ур. 1</span>
+                </div>
+                <div class="xp-bar">
+                    <div class="xp-fill" id="profileXpBar"></div>
+                </div>
             </div>
         </div>
-        <div class="stat-row"><span>📅 Серия активности:</span><span><span id="streakCount">0</span> дней 🔥</span></div>
-        <div class="stat-row"><span>📆 Всего активных дней:</span><span><span id="totalActiveDays">0</span> дней</span></div>
-        <div class="stat-row"><span>📝 Всего заданий:</span><span><span id="totalTasks">0</span></span></div>
-        <button id="resetAvatarBtn" style="background: #94a3b8; margin-top: 10px;">🔄 Сбросить аватар</button>
+        <div class="stat-row">
+            <span>📅 Серия активности:</span>
+            <span><span id="streakCount">0</span> дней 🔥</span>
+        </div>
+        <div class="stat-row">
+            <span>📆 Всего активных дней:</span>
+            <span><span id="totalActiveDays">0</span> дней</span>
+        </div>
+        <div class="stat-row">
+            <span>📝 Всего заданий:</span>
+            <span><span id="totalTasks">0</span></span>
+        </div>
     </div>
     <div class="card">
         <h3>🏆 Таблица уровней</h3>
@@ -152,11 +392,7 @@
 </div>
 
 <script>
-    // ========== НАСТРОЙКИ ==========
-    // ⚠️ ВСТАВЬТЕ ВАШ API КЛЮЧ DEEPSEEK ЗДЕСЬ (получить бесплатно на platform.deepseek.com)
-    const DEEPSEEK_API_KEY = "sk-e8a44cc156c74b53bbfb46e580790dd8";  // ЗАМЕНИТЕ НА ВАШ КЛЮЧ
-    
-    // ========== ДАННЫЕ ==========
+    // ========== ТАБЛИЦА УРОВНЕЙ ==========
     const levels = [
         { level: 1, name: "Бронзовый ученик", totalXP: 100 },
         { level: 2, name: "Серебряный новичок", totalXP: 300 },
@@ -170,36 +406,34 @@
         { level: 10, name: "Легендарный носитель языка", totalXP: 36500 }
     ];
 
-    let userXP = 0, lastVisitDate = "", streak = 0, totalActiveDays = 0, totalTasks = 0;
-    let storage = { cycle: [], attention: [], dispute: [], cards: [] };
+    // ========== ДАННЫЕ ==========
+    let userXP = 0;
+    let lastVisitDate = "";
+    let streak = 0;
+    let totalActiveDays = 0;
+    let totalTasks = 0;
+    
+    let storage = { cycle: [], attention: [], dispute: [], cards: [], looksmax: [] };
     let notes = [];
-    let currentMode = "cycle";
-    let avatarBase64 = "";
 
-    // ========== ЗАГРУЗКА ==========
+    let currentMode = "cycle";
+
+    // ========== ЗАГРУЗКА / СОХРАНЕНИЕ ==========
     function loadAll() {
         userXP = parseInt(localStorage.getItem("userXP") || "0");
         lastVisitDate = localStorage.getItem("lastVisitDate") || "";
         streak = parseInt(localStorage.getItem("streak") || "0");
         totalActiveDays = parseInt(localStorage.getItem("totalActiveDays") || "0");
         totalTasks = parseInt(localStorage.getItem("totalTasks") || "0");
-        avatarBase64 = localStorage.getItem("avatarBase64") || "";
         
-        for (let k of ["cycle","attention","dispute","cards"]) {
+        const keys = ["cycle", "attention", "dispute", "cards", "looksmax"];
+        for (let k of keys) {
             let raw = localStorage.getItem(`cbt_${k}`);
             storage[k] = raw ? JSON.parse(raw) : [];
         }
-        notes = JSON.parse(localStorage.getItem("notes") || "[]");
         
-        // Обновить аватар
-        if (avatarBase64) {
-            document.getElementById("avatarImg").src = avatarBase64;
-            document.getElementById("avatarImg").style.display = "block";
-            document.getElementById("avatarPlaceholder").style.display = "none";
-        } else {
-            document.getElementById("avatarImg").style.display = "none";
-            document.getElementById("avatarPlaceholder").style.display = "block";
-        }
+        let notesRaw = localStorage.getItem("notes");
+        notes = notesRaw ? JSON.parse(notesRaw) : [];
     }
 
     function saveAll() {
@@ -208,20 +442,23 @@
         localStorage.setItem("streak", streak);
         localStorage.setItem("totalActiveDays", totalActiveDays);
         localStorage.setItem("totalTasks", totalTasks);
-        localStorage.setItem("avatarBase64", avatarBase64);
         localStorage.setItem("notes", JSON.stringify(notes));
         for (let k of Object.keys(storage)) {
             localStorage.setItem(`cbt_${k}`, JSON.stringify(storage[k]));
         }
     }
 
-    // ========== СЕРИЯ ==========
+    // ========== СИСТЕМА СЕРИЙ ==========
     function updateStreak() {
         const today = new Date().toDateString();
         if (lastVisitDate !== today) {
-            const yesterday = new Date(); yesterday.setDate(yesterday.getDate()-1);
-            if (lastVisitDate === yesterday.toDateString()) streak++;
-            else streak = 1;
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            if (lastVisitDate === yesterday.toDateString()) {
+                streak++;
+            } else {
+                streak = 1;
+            }
             lastVisitDate = today;
             totalActiveDays++;
             saveAll();
@@ -229,7 +466,7 @@
         }
     }
 
-    // ========== XP ==========
+    // ========== ДОБАВЛЕНИЕ XP ==========
     function addXP(amount) {
         userXP += amount;
         totalTasks++;
@@ -237,16 +474,51 @@
         updateStreak();
         updateProfileUI();
         showToast(`+${amount} XP!`);
+        
         const newLevel = getCurrentLevel();
         const oldLevel = getCurrentLevelFromXP(userXP - amount);
-        if (newLevel > oldLevel) showToast(`🎉 НОВЫЙ УРОВЕНЬ! ${levels[newLevel-1].name} 🎉`, 2000);
+        if (newLevel > oldLevel) {
+            showToast(`🎉 НОВЫЙ УРОВЕНЬ! ${levels[newLevel-1].name} 🎉`, 2000);
+        }
     }
 
-    function getCurrentLevel() { let lvl=1; for(let i=0;i<levels.length;i++) if(userXP>=levels[i].totalXP) lvl=levels[i].level; return lvl; }
-    function getCurrentLevelFromXP(xp) { let lvl=1; for(let i=0;i<levels.length;i++) if(xp>=levels[i].totalXP) lvl=levels[i].level; return lvl; }
-    function getXPInCurrent() { const lvl=getCurrentLevel(); if(lvl===1) return userXP; const prevXP=levels[lvl-2]?.totalXP||0; return userXP-prevXP; }
-    function getXPNeeded() { const lvl=getCurrentLevel(); if(lvl===1) return 100; const prevXP=levels[lvl-2]?.totalXP||0; return levels[lvl-1].totalXP-prevXP; }
+    function getCurrentLevel() {
+        let lvl = 1;
+        for (let i = 0; i < levels.length; i++) {
+            if (userXP >= levels[i].totalXP) lvl = levels[i].level;
+        }
+        return lvl;
+    }
 
+    function getCurrentLevelFromXP(xp) {
+        let lvl = 1;
+        for (let i = 0; i < levels.length; i++) {
+            if (xp >= levels[i].totalXP) lvl = levels[i].level;
+        }
+        return lvl;
+    }
+
+    function getXPToNext() {
+        const lvl = getCurrentLevel();
+        if (lvl >= 10) return 0;
+        return levels[lvl].totalXP - userXP;
+    }
+
+    function getXPInCurrent() {
+        const lvl = getCurrentLevel();
+        if (lvl === 1) return userXP;
+        const prevXP = levels[lvl-2]?.totalXP || 0;
+        return userXP - prevXP;
+    }
+
+    function getXPNeeded() {
+        const lvl = getCurrentLevel();
+        if (lvl === 1) return 100;
+        const prevXP = levels[lvl-2]?.totalXP || 0;
+        return levels[lvl-1].totalXP - prevXP;
+    }
+
+    // ========== UI ОБНОВЛЕНИЕ ==========
     function updateProfileUI() {
         const lvl = getCurrentLevel();
         document.getElementById("profileXP").innerText = userXP;
@@ -254,246 +526,344 @@
         document.getElementById("streakCount").innerText = streak;
         document.getElementById("totalActiveDays").innerText = totalActiveDays;
         document.getElementById("totalTasks").innerText = totalTasks;
+        
         const percent = (getXPInCurrent() / getXPNeeded()) * 100;
         document.getElementById("profileXpBar").style.width = `${Math.min(100, percent)}%`;
         
         let html = "";
         for (let l of levels) {
             const isUnlocked = userXP >= l.totalXP;
-            html += `<div style="display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #eee;"><span>${l.level}. ${l.name}</span><span>${isUnlocked ? "✅" : `🔒 ${l.totalXP} XP`}</span></div>`;
+            html += `<div style="display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #eee;">
+                <span>${l.level}. ${l.name}</span>
+                <span>${isUnlocked ? "✅" : `🔒 ${l.totalXP} XP`}</span>
+            </div>`;
         }
         document.getElementById("levelsTable").innerHTML = html;
     }
 
-    function showToast(msg, duration=1500) {
-        const toast = document.createElement("div"); toast.className = "toast"; toast.innerText = msg;
+    function showToast(msg, duration = 1500) {
+        const toast = document.createElement("div");
+        toast.className = "toast";
+        toast.innerText = msg;
         document.body.appendChild(toast);
         setTimeout(() => toast.remove(), duration);
     }
 
-    // ========== ИСТОРИЯ С УДАЛЕНИЕМ ==========
+    // ========== ИСТОРИЯ ==========
     function renderHistory() {
         const entries = storage[currentMode];
         const container = document.getElementById("historyList");
-        if (!entries.length) { container.innerHTML = '<div class="empty">✨ Нет записей</div>'; return; }
+        if (!entries.length) {
+            container.innerHTML = '<div class="empty">✨ Нет записей. Создайте первую</div>';
+            return;
+        }
         let html = "";
-        for (let i = 0; i < entries.length; i++) {
-            const e = entries[i];
-            let text = "";
-            if (currentMode === "cycle") text = `📍 ${e.situation || "-"}<br>💭 ${e.thoughts || "-"}`;
-            else if (currentMode === "attention") text = `🧭 ${e.situation || "-"}<br>🔄 ${e.shift || "-"}`;
-            else if (currentMode === "dispute") text = `⚡ ${e.thought || "-"}<br>🌱 ${e.newThought || "-"}`;
-            else if (currentMode === "cards") text = `📇 ${e.front || "-"}<br>🔄 ${e.back || "-"}`;
-            
-            html += `<div class="history-item">
-                <div class="history-content">
-                    <small>📅 ${e.date}</small><br>${text}
-                </div>
-                <button class="delete-history-btn" data-index="${i}">🗑️</button>
-            </div>`;
+        for (let e of entries.slice(0, 10)) {
+            if (currentMode === "cycle") {
+                html += `<div class="history-item">📅 ${e.date}<br>📍 ${e.situation || "-"}<br>💭 ${e.thoughts || "-"}</div>`;
+            } else if (currentMode === "attention") {
+                html += `<div class="history-item">📅 ${e.date}<br>🧭 ${e.situation || "-"}<br>🔄 ${e.shift || "-"}</div>`;
+            } else if (currentMode === "dispute") {
+                html += `<div class="history-item">📅 ${e.date}<br>⚡ ${e.thought || "-"}<br>🌱 ${e.newThought || "-"}</div>`;
+            } else if (currentMode === "cards") {
+                html += `<div class="history-item">📅 ${e.date}<br>📇 ${e.front || "-"}<br>🔄 ${e.back || "-"}</div>`;
+            } else if (currentMode === "looksmax") {
+                html += `<div class="history-item">📅 ${e.date}<br>💪 ${e.exercise || "-"}<br>⏱️ ${e.duration || "-"} сек</div>`;
+            }
         }
         container.innerHTML = html;
-        
-        document.querySelectorAll(".delete-history-btn").forEach(btn => {
-            btn.addEventListener("click", (e) => {
-                const idx = parseInt(btn.dataset.index);
-                storage[currentMode].splice(idx, 1);
-                localStorage.setItem(`cbt_${currentMode}`, JSON.stringify(storage[currentMode]));
-                renderHistory();
-                updateAISelect();
-                showToast("Запись удалена");
+    }
+
+    // ========== ТАЙМЕР ДЛЯ ЛУКСМАКСИНГА ==========
+    let timerInterval = null;
+    let currentExerciseIndex = 0;
+    let timerSeconds = 0;
+    let isTiming = false;
+
+    const exercises = [
+        { name: "Глиссер челюсти", desc: "Челюсть выдвинуть вперёд + опустить подбородок к груди", duration: 15, reps: 10 },
+        { name: "Язык к подбородку (как собака)", desc: "Вытянуть язык к подбородку", duration: 10, reps: 8 },
+        { name: "Волна языком по нёбу", desc: "Провести языком по нёбу от зубов к горлу", duration: 12, reps: 12 }
+    ];
+
+    function renderLooksmaxForm() {
+        const container = document.getElementById("formArea");
+        container.innerHTML = `
+            <div style="margin-bottom: 16px;">
+                <div style="background: #f0fdf4; padding: 12px; border-radius: 16px; margin-bottom: 16px;">
+                    <h4>⚡ Ключевое правило</h4>
+                    <p style="font-size: 0.85rem;">❌ <strong>Убрать креатин полностью на 3 недели</strong> — без этого упражнения почти бесполезны</p>
+                </div>
+                <div id="exerciseList">
+                    ${exercises.map((ex, idx) => `
+                        <div class="exercise-item" data-ex-idx="${idx}">
+                            <div class="exercise-name">${idx+1}. ${ex.name}</div>
+                            <div class="exercise-desc">${ex.desc}</div>
+                            <div class="exercise-desc">🎯 ${ex.reps} повторений, ⏱️ ${ex.duration} сек на повтор</div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div id="timerPanel" style="background: #e2e8f0; border-radius: 20px; padding: 16px; margin: 16px 0; text-align: center;">
+                    <div style="font-weight: bold;" id="currentExerciseName">Глиссер челюсти</div>
+                    <div class="timer-display" id="timerDisplay">00:00</div>
+                    <div class="timer-buttons">
+                        <button id="startTimerBtn" style="background: #22c55e;">▶ Старт</button>
+                        <button id="stopTimerBtn" style="background: #ef4444;">⏹️ Стоп</button>
+                        <button id="nextExerciseBtn" style="background: #3b82f6;">➡️ Следующее</button>
+                    </div>
+                    <div style="margin-top: 12px; font-size: 0.8rem;" id="progressText">Упражнение 1 из 3</div>
+                </div>
+                <button id="saveLooksmaxBtn" style="background: #1e4a76; width: 100%; margin-top: 8px;">💾 Сохранить тренировку (+20 XP)</button>
+                
+                <div style="margin-top: 20px;">
+                    <h4>🚫 Противопоказания и что исключить</h4>
+                    <div class="warning-list">
+                        <div class="warning-item">❌ Креатин (любая форма)</div>
+                        <div class="warning-item">❌ Молочные продукты (молоко, йогурт, сыр, творог)</div>
+                        <div class="warning-item">❌ Скрытый натрий: колбаса, консервы, соевый соус, чипсы</div>
+                        <div class="warning-item">❌ Белый сахар, сладкая газировка, сдоба</div>
+                        <div class="warning-item">❌ Омега-3 в капсулах — заменить на рыбу (скумбрия, сардины)</div>
+                    </div>
+                    <h4 style="margin-top: 12px;">✅ Что делать</h4>
+                    <div class="warning-list" style="background: #f0fdf4;">
+                        <div class="warning-item" style="color: #166534;">✔️ Спать на низкой подушке (6–8 см)</div>
+                        <div class="warning-item" style="color: #166534;">✔️ Соль не более 3 г/сутки</div>
+                        <div class="warning-item" style="color: #166534;">✔️ Упражнения каждый день по 5 минут</div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Таймер
+        let currentTimerSeconds = exercises[0].duration;
+        let currentExerciseIdx = 0;
+        const timerDisplay = document.getElementById("timerDisplay");
+        const currentExerciseNameSpan = document.getElementById("currentExerciseName");
+        const progressSpan = document.getElementById("progressText");
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(currentTimerSeconds / 60);
+            const secs = currentTimerSeconds % 60;
+            timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            isTiming = false;
+        }
+
+        function startTimer() {
+            if (timerInterval) stopTimer();
+            isTiming = true;
+            timerInterval = setInterval(() => {
+                if (currentTimerSeconds <= 0) {
+                    stopTimer();
+                    showToast(`✅ ${exercises[currentExerciseIdx].name} выполнено!`);
+                    // Автоматически перейти к следующему
+                    if (currentExerciseIdx + 1 < exercises.length) {
+                        setTimeout(() => {
+                            nextExercise();
+                        }, 1000);
+                    } else {
+                        showToast("🎉 Тренировка завершена!", 2000);
+                    }
+                } else {
+                    currentTimerSeconds--;
+                    updateTimerDisplay();
+                }
+            }, 1000);
+        }
+
+        function nextExercise() {
+            if (currentExerciseIdx + 1 < exercises.length) {
+                currentExerciseIdx++;
+                currentTimerSeconds = exercises[currentExerciseIdx].duration;
+                currentExerciseNameSpan.textContent = exercises[currentExerciseIdx].name;
+                progressSpan.textContent = `Упражнение ${currentExerciseIdx+1} из ${exercises.length}`;
+                updateTimerDisplay();
+                stopTimer();
+                showToast(`➡️ ${exercises[currentExerciseIdx].name}`, 1000);
+            } else {
+                showToast("🏆 Ты выполнил все упражнения! Молодец!", 1500);
+            }
+        }
+
+        function resetToExercise(idx) {
+            currentExerciseIdx = idx;
+            currentTimerSeconds = exercises[idx].duration;
+            currentExerciseNameSpan.textContent = exercises[idx].name;
+            progressSpan.textContent = `Упражнение ${idx+1} из ${exercises.length}`;
+            updateTimerDisplay();
+            stopTimer();
+        }
+
+        document.getElementById("startTimerBtn")?.addEventListener("click", startTimer);
+        document.getElementById("stopTimerBtn")?.addEventListener("click", stopTimer);
+        document.getElementById("nextExerciseBtn")?.addEventListener("click", nextExercise);
+
+        // Сохранение тренировки
+        document.getElementById("saveLooksmaxBtn")?.addEventListener("click", () => {
+            storage.looksmax.unshift({
+                id: Date.now(),
+                date: new Date().toLocaleString(),
+                exercise: "Комплекс упражнений",
+                duration: "выполнено"
             });
+            localStorage.setItem(`cbt_looksmax`, JSON.stringify(storage.looksmax));
+            addXP(20);
+            renderHistory();
+            showToast("💪 Тренировка сохранена! +20 XP");
         });
     }
 
     // ========== ФОРМЫ ==========
     function renderForm() {
         const container = document.getElementById("formArea");
-        if (currentMode === "cycle") {
-            container.innerHTML = `<input type="text" id="situation" placeholder="Ситуация (где, когда, с кем)"><textarea id="thoughts" placeholder="Тревожные мысли"></textarea><textarea id="inner" placeholder="Внимание внутрь"></textarea><textarea id="behavior" placeholder="Защитное поведение"></textarea><textarea id="outcome" placeholder="Итог"></textarea><button id="saveBtn">💾 Сохранить (+20 XP)</button>`;
-        } else if (currentMode === "attention") {
-            container.innerHTML = `<input type="text" id="situation" placeholder="Ситуация"><textarea id="innerFocus" placeholder="Внутренний фокус"></textarea><textarea id="outerFocus" placeholder="Внешний фокус"></textarea><textarea id="shift" placeholder="Что изменилось"></textarea><button id="saveBtn">💾 Сохранить (+20 XP)</button>`;
-        } else if (currentMode === "dispute") {
-            container.innerHTML = `<textarea id="thought" placeholder="Мысль"></textarea><input type="text" id="distortion" placeholder="Искажение"><textarea id="questions" placeholder="Вопросы оспаривания"></textarea><textarea id="newThought" placeholder="Новая мысль"></textarea><button id="saveBtn">💾 Сохранить (+20 XP)</button>`;
-        } else if (currentMode === "cards") {
-            container.innerHTML = `<textarea id="front" placeholder="Лицевая сторона (мысль/вопрос)"></textarea><textarea id="back" placeholder="Обратная сторона (альтернатива)"></textarea><button id="saveBtn">➕ Добавить карточку (+20 XP)</button>`;
+        
+        if (currentMode === "looksmax") {
+            renderLooksmaxForm();
+            return;
         }
-        document.getElementById("saveBtn")?.addEventListener("click", saveEntry);
+        
+        if (currentMode === "cycle") {
+            container.innerHTML = `
+                <input type="text" id="situation" placeholder="Ситуация (где, когда, с кем)">
+                <textarea id="thoughts" placeholder="Тревожные мысли"></textarea>
+                <textarea id="inner" placeholder="Внимание внутрь"></textarea>
+                <textarea id="behavior" placeholder="Защитное поведение"></textarea>
+                <textarea id="outcome" placeholder="Итог"></textarea>
+                <button id="saveBtn">💾 Сохранить (+20 XP)</button>
+            `;
+        } else if (currentMode === "attention") {
+            container.innerHTML = `
+                <input type="text" id="situation" placeholder="Ситуация">
+                <textarea id="innerFocus" placeholder="Внутренний фокус"></textarea>
+                <textarea id="outerFocus" placeholder="Внешний фокус"></textarea>
+                <textarea id="shift" placeholder="Что изменилось"></textarea>
+                <button id="saveBtn">💾 Сохранить (+20 XP)</button>
+            `;
+        } else if (currentMode === "dispute") {
+            container.innerHTML = `
+                <textarea id="thought" placeholder="Мысль"></textarea>
+                <input type="text" id="distortion" placeholder="Искажение">
+                <textarea id="questions" placeholder="Вопросы оспаривания"></textarea>
+                <textarea id="newThought" placeholder="Новая мысль"></textarea>
+                <button id="saveBtn">💾 Сохранить (+20 XP)</button>
+            `;
+        } else if (currentMode === "cards") {
+            container.innerHTML = `
+                <textarea id="front" placeholder="Лицевая сторона (мысль/вопрос)"></textarea>
+                <textarea id="back" placeholder="Обратная сторона (альтернатива)"></textarea>
+                <button id="saveBtn">➕ Добавить карточку (+20 XP)</button>
+            `;
+        }
+        
+        if (currentMode !== "looksmax") {
+            document.getElementById("saveBtn")?.addEventListener("click", saveEntry);
+        }
     }
 
     function saveEntry() {
         let data = {};
         if (currentMode === "cycle") {
-            data = { situation: document.getElementById("situation")?.value || "", thoughts: document.getElementById("thoughts")?.value || "", inner: document.getElementById("inner")?.value || "", behavior: document.getElementById("behavior")?.value || "", outcome: document.getElementById("outcome")?.value || "" };
+            data = {
+                situation: document.getElementById("situation")?.value || "",
+                thoughts: document.getElementById("thoughts")?.value || "",
+                inner: document.getElementById("inner")?.value || "",
+                behavior: document.getElementById("behavior")?.value || "",
+                outcome: document.getElementById("outcome")?.value || ""
+            };
         } else if (currentMode === "attention") {
-            data = { situation: document.getElementById("situation")?.value || "", innerFocus: document.getElementById("innerFocus")?.value || "", outerFocus: document.getElementById("outerFocus")?.value || "", shift: document.getElementById("shift")?.value || "" };
+            data = {
+                situation: document.getElementById("situation")?.value || "",
+                innerFocus: document.getElementById("innerFocus")?.value || "",
+                outerFocus: document.getElementById("outerFocus")?.value || "",
+                shift: document.getElementById("shift")?.value || ""
+            };
         } else if (currentMode === "dispute") {
-            data = { thought: document.getElementById("thought")?.value || "", distortion: document.getElementById("distortion")?.value || "", questions: document.getElementById("questions")?.value || "", newThought: document.getElementById("newThought")?.value || "" };
+            data = {
+                thought: document.getElementById("thought")?.value || "",
+                distortion: document.getElementById("distortion")?.value || "",
+                questions: document.getElementById("questions")?.value || "",
+                newThought: document.getElementById("newThought")?.value || ""
+            };
         } else if (currentMode === "cards") {
-            data = { front: document.getElementById("front")?.value || "", back: document.getElementById("back")?.value || "" };
+            data = {
+                front: document.getElementById("front")?.value || "",
+                back: document.getElementById("back")?.value || ""
+            };
         }
-        if (!Object.values(data).some(v => v.trim())) return alert("Заполните хотя бы одно поле");
+        
+        const hasData = Object.values(data).some(v => v.trim());
+        if (!hasData) return alert("Заполните хотя бы одно поле");
+        
         storage[currentMode].unshift({ id: Date.now(), date: new Date().toLocaleString(), ...data });
         localStorage.setItem(`cbt_${currentMode}`, JSON.stringify(storage[currentMode]));
+        
         addXP(20);
         renderHistory();
         renderForm();
-        updateAISelect();
+        
         document.querySelectorAll("#formArea input, #formArea textarea").forEach(f => f.value = "");
     }
 
     // ========== БЛОКНОТ ==========
     function renderNotes() {
         const container = document.getElementById("notesList");
-        if (!notes.length) { container.innerHTML = '<div class="empty">📭 Нет заметок</div>'; return; }
+        if (!notes.length) {
+            container.innerHTML = '<div class="empty">📭 Нет заметок. Добавьте первую</div>';
+            return;
+        }
         let html = "";
-        for (let i=0; i<notes.length; i++) {
-            html += `<div class="note-item"><span>📝 ${escapeHtml(notes[i])}</span><button class="delete-note" data-index="${i}">🗑️</button></div>`;
+        for (let i = 0; i < notes.length; i++) {
+            html += `
+                <div class="note-item">
+                    <span>📝 ${escapeHtml(notes[i])}</span>
+                    <button class="delete-note" data-index="${i}">🗑️</button>
+                </div>
+            `;
         }
         container.innerHTML = html;
         document.querySelectorAll(".delete-note").forEach(btn => {
-            btn.addEventListener("click", (e) => { notes.splice(parseInt(btn.dataset.index),1); saveAll(); renderNotes(); });
-        });
-    }
-
-    function addNote() { const input=document.getElementById("noteInput"); if(input.value.trim()) { notes.unshift(input.value.trim()); saveAll(); renderNotes(); input.value=""; showToast("📌 Заметка сохранена"); } }
-
-    // ========== АВАТАР ==========
-    function setupAvatar() {
-        const avatarDiv = document.getElementById("avatarClick");
-        avatarDiv.addEventListener("click", () => {
-            const input = document.createElement("input");
-            input.type = "file";
-            input.accept = "image/*";
-            input.onchange = (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (ev) => {
-                        avatarBase64 = ev.target.result;
-                        localStorage.setItem("avatarBase64", avatarBase64);
-                        document.getElementById("avatarImg").src = avatarBase64;
-                        document.getElementById("avatarImg").style.display = "block";
-                        document.getElementById("avatarPlaceholder").style.display = "none";
-                        showToast("Аватар обновлён!");
-                    };
-                    reader.readAsDataURL(file);
-                }
-            };
-            input.click();
-        });
-        document.getElementById("resetAvatarBtn").addEventListener("click", () => {
-            avatarBase64 = "";
-            localStorage.removeItem("avatarBase64");
-            document.getElementById("avatarImg").style.display = "none";
-            document.getElementById("avatarPlaceholder").style.display = "block";
-            showToast("Аватар сброшен");
-        });
-    }
-
-    // ========== ИИ ПОМОЩНИК ==========
-    function updateAISelect() {
-        const select = document.getElementById("historySelect");
-        if (!select) return;
-        let allEntries = [];
-        for (let mode of ["cycle", "attention", "dispute", "cards"]) {
-            for (let entry of storage[mode]) {
-                let text = "";
-                if (mode === "cycle") text = `[Анализ цикла] ${entry.situation || ""} ${entry.thoughts || ""}`;
-                else if (mode === "attention") text = `[Внимание] ${entry.situation || ""} ${entry.shift || ""}`;
-                else if (mode === "dispute") text = `[Оспаривание] ${entry.thought || ""} → ${entry.newThought || ""}`;
-                else if (mode === "cards") text = `[Карточка] ${entry.front || ""} → ${entry.back || ""}`;
-                allEntries.push({ date: entry.date, text: text });
-            }
-        }
-        select.innerHTML = '<option value="">📋 Выбери запись для анализа...</option>';
-        for (let e of allEntries.slice(0, 30)) {
-            const option = document.createElement("option");
-            option.value = e.text;
-            option.textContent = `${e.date} ${e.text.substring(0, 50)}...`;
-            select.appendChild(option);
-        }
-    }
-
-    async function callDeepSeek(prompt) {
-        if (DEEPSEEK_API_KEY === "YOUR_API_KEY_HERE") {
-            return "⚠️ API ключ DeepSeek не настроен. Зарегистрируйтесь на platform.deepseek.com и вставьте ключ в код (строка DEEPSEEK_API_KEY).";
-        }
-        try {
-            const response = await fetch("https://api.deepseek.com/v1/chat/completions", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${DEEPSEEK_API_KEY}`
-                },
-                body: JSON.stringify({
-                    model: "deepseek-chat",
-                    messages: [{ role: "user", content: prompt }],
-                    max_tokens: 500
-                })
+            btn.addEventListener("click", (e) => {
+                const idx = parseInt(btn.dataset.index);
+                notes.splice(idx, 1);
+                saveAll();
+                renderNotes();
             });
-            const data = await response.json();
-            if (data.choices && data.choices[0]) {
-                return data.choices[0].message.content;
-            } else {
-                return "❌ Ошибка: " + (data.error?.message || "Неизвестная ошибка");
-            }
-        } catch (err) {
-            return "❌ Ошибка соединения: " + err.message;
+        });
+    }
+
+    function addNote() {
+        const input = document.getElementById("noteInput");
+        if (input.value.trim()) {
+            notes.unshift(input.value.trim());
+            saveAll();
+            renderNotes();
+            input.value = "";
+            showToast("📌 Заметка сохранена");
         }
     }
 
-    async function sendToAI(message, isAnalysis = false) {
-        const chatDiv = document.getElementById("chatMessages");
-        const userMsgDiv = document.createElement("div");
-        userMsgDiv.className = "message user";
-        userMsgDiv.innerText = message;
-        chatDiv.appendChild(userMsgDiv);
-        
-        const loadingDiv = document.createElement("div");
-        loadingDiv.className = "message ai";
-        loadingDiv.innerText = "🤔 Думаю...";
-        chatDiv.appendChild(loadingDiv);
-        chatDiv.scrollTop = chatDiv.scrollHeight;
-        
-        let prompt = message;
-        if (isAnalysis) {
-            prompt = `Ты когнитивный психолог. Проанализируй эту запись и дай советы: ${message}`;
-        }
-        
-        const answer = await callDeepSeek(prompt);
-        loadingDiv.remove();
-        
-        const aiMsgDiv = document.createElement("div");
-        aiMsgDiv.className = "message ai";
-        aiMsgDiv.innerText = answer;
-        chatDiv.appendChild(aiMsgDiv);
-        chatDiv.scrollTop = chatDiv.scrollHeight;
-    }
-
-    async function analyzeSelected() {
-        const select = document.getElementById("historySelect");
-        const selectedText = select.value;
-        if (!selectedText) {
-            alert("Выберите запись для анализа");
-            return;
-        }
-        await sendToAI(selectedText, true);
+    function escapeHtml(str) {
+        if (!str) return "";
+        return str.replace(/[&<>]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[m]));
     }
 
     // ========== НАВИГАЦИЯ ==========
     function switchScreen(screenId) {
-        document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+        document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
         document.getElementById(`${screenId}Screen`).classList.add("active");
-        document.querySelectorAll(".nav-item").forEach(btn=>btn.classList.remove("active"));
+        document.querySelectorAll(".nav-item").forEach(btn => btn.classList.remove("active"));
         document.querySelector(`.nav-item[data-screen="${screenId}"]`).classList.add("active");
-        if(screenId==="profile") updateProfileUI();
-        if(screenId==="notepad") renderNotes();
-        if(screenId==="main") renderHistory();
-        if(screenId==="ai") updateAISelect();
+        
+        if (screenId === "profile") updateProfileUI();
+        if (screenId === "notepad") renderNotes();
+        if (screenId === "main") renderHistory();
     }
-
-    function escapeHtml(str) { if(!str) return ""; return str.replace(/[&<>]/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m])); }
 
     // ========== ИНИЦИАЛИЗАЦИЯ ==========
     loadAll();
@@ -502,33 +872,22 @@
     renderHistory();
     updateProfileUI();
     renderNotes();
-    setupAvatar();
-    updateAISelect();
-
-    document.querySelectorAll(".nav-item").forEach(btn => btn.addEventListener("click", () => switchScreen(btn.dataset.screen)));
+    
+    document.querySelectorAll(".nav-item").forEach(btn => {
+        btn.addEventListener("click", () => switchScreen(btn.dataset.screen));
+    });
+    
     document.querySelectorAll(".mode-tab").forEach(btn => {
         btn.addEventListener("click", () => {
-            document.querySelectorAll(".mode-tab").forEach(b=>b.classList.remove("active"));
+            document.querySelectorAll(".mode-tab").forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
             currentMode = btn.dataset.mode;
             renderForm();
             renderHistory();
         });
     });
+    
     document.getElementById("addNoteBtn")?.addEventListener("click", addNote);
-    document.getElementById("sendChatBtn")?.addEventListener("click", () => {
-        const input = document.getElementById("chatInput");
-        if (input.value.trim()) {
-            sendToAI(input.value, false);
-            input.value = "";
-        }
-    });
-    document.getElementById("analyzeSelectedBtn")?.addEventListener("click", analyzeSelected);
-    document.getElementById("chatInput")?.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") {
-            document.getElementById("sendChatBtn").click();
-        }
-    });
 </script>
 </body>
 </html>
