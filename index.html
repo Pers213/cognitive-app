@@ -20,7 +20,6 @@
             padding-bottom: 70px;
         }
 
-        /* ========== НИЖНЯЯ ПАНЕЛЬ ========== */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -31,7 +30,6 @@
             justify-content: space-around;
             padding: 10px 20px 20px;
             border-top: 1px solid #e5e5e5;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
             z-index: 100;
         }
 
@@ -47,7 +45,6 @@
             cursor: pointer;
             padding: 5px 15px;
             border-radius: 30px;
-            transition: 0.2s;
         }
 
         .nav-item.active {
@@ -59,7 +56,6 @@
             font-size: 24px;
         }
 
-        /* ========== ЭКРАНЫ ========== */
         .screen {
             display: none;
             padding: 16px;
@@ -75,7 +71,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ========== КАРТОЧКИ ========== */
         .card {
             background: white;
             border-radius: 24px;
@@ -96,7 +91,42 @@
             color: #334155;
         }
 
-        /* Профиль */
+        .mode-buttons {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .mode-tab {
+            background: #e2e8f0;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            cursor: pointer;
+        }
+
+        .mode-tab.active {
+            background: #1e4a76;
+            color: white;
+        }
+
+        .history-item {
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 14px;
+            margin-bottom: 8px;
+            font-size: 0.75rem;
+            border-left: 3px solid #fbbf24;
+        }
+
+        .empty {
+            text-align: center;
+            color: #999;
+            padding: 30px;
+        }
+
         .profile-header {
             display: flex;
             align-items: center;
@@ -149,7 +179,6 @@
             border-radius: 20px;
         }
 
-        /* Формы */
         input, textarea {
             width: 100%;
             padding: 12px;
@@ -158,11 +187,6 @@
             margin-bottom: 12px;
             font-family: inherit;
             font-size: 0.9rem;
-        }
-
-        textarea {
-            min-height: 70px;
-            resize: vertical;
         }
 
         button {
@@ -175,69 +199,46 @@
             cursor: pointer;
         }
 
-        .btn-small {
-            background: #e2e8f0;
+        .exercise-item {
+            background: #f0f9ff;
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+
+        .exercise-name {
+            font-weight: 700;
+            font-size: 1rem;
             color: #1e4a76;
-            padding: 6px 12px;
+        }
+
+        .exercise-desc {
             font-size: 0.8rem;
+            color: #475569;
+            margin: 6px 0;
         }
 
-        .mode-buttons {
+        .checkbox-label {
             display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-        }
-
-        .mode-tab {
-            background: #e2e8f0;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 0.75rem;
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
             cursor: pointer;
         }
 
-        .mode-tab.active {
-            background: #1e4a76;
-            color: white;
-        }
-
-        .history-item {
-            background: #f8fafc;
-            padding: 10px;
-            border-radius: 14px;
-            margin-bottom: 8px;
-            font-size: 0.75rem;
-            border-left: 3px solid #fbbf24;
-        }
-
-        .empty {
-            text-align: center;
-            color: #999;
-            padding: 30px;
-        }
-
-        /* Блокнот */
-        .note-item {
-            background: #fef9e3;
+        .warning-list {
+            background: #fef2f2;
             padding: 12px;
             border-radius: 16px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin-top: 10px;
         }
 
-        .delete-note {
-            background: none;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            padding: 5px;
+        .warning-item {
+            color: #dc2626;
+            font-size: 0.8rem;
+            padding: 4px 0;
         }
 
-        /* Уведомление */
         .toast {
             position: fixed;
             bottom: 100px;
@@ -258,56 +259,14 @@
             100% { opacity: 0; visibility: hidden; }
         }
 
-        /* ========== ЛУКСМАКСИНГ ========== */
-        .exercise-item {
-            background: #f0f9ff;
-            border-radius: 16px;
-            padding: 14px;
-            margin-bottom: 12px;
-        }
-
-        .exercise-name {
-            font-weight: 700;
-            font-size: 1rem;
-            color: #1e4a76;
-        }
-
-        .exercise-desc {
-            font-size: 0.8rem;
-            color: #475569;
-            margin: 6px 0;
-        }
-
-        .timer-display {
-            font-size: 2rem;
-            font-weight: 700;
-            text-align: center;
-            margin: 10px 0;
-        }
-
-        .timer-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .warning-list {
-            background: #fef2f2;
-            padding: 12px;
-            border-radius: 16px;
-            margin-top: 10px;
-        }
-
-        .warning-item {
-            color: #dc2626;
-            font-size: 0.8rem;
-            padding: 4px 0;
+        .today-card {
+            background: #fef9e3;
+            border-left: 4px solid #fbbf24;
         }
     </style>
 </head>
 <body>
 
-<!-- НИЖНЯЯ ПАНЕЛЬ -->
 <div class="bottom-nav">
     <button class="nav-item active" data-screen="main">
         <span class="nav-icon">📝</span>
@@ -323,7 +282,7 @@
     </button>
 </div>
 
-<!-- ЭКРАН: ГЛАВНАЯ (запись таблиц + люксмаксинг) -->
+<!-- ГЛАВНАЯ -->
 <div id="mainScreen" class="screen active">
     <div class="card">
         <h3>📝 Что хочешь записать?</h3>
@@ -333,10 +292,9 @@
             <button class="mode-tab" data-mode="dispute">⚖️ Оспаривание</button>
             <button class="mode-tab" data-mode="cards">📇 Карточки</button>
             <button class="mode-tab" data-mode="looksmax">💪 Луксмаксинг</button>
+            <button class="mode-tab" data-mode="diction">🗣️ Дикция</button>
         </div>
-        <div id="formArea">
-            <!-- сюда подставится форма -->
-        </div>
+        <div id="formArea"></div>
     </div>
     <div class="card">
         <h3>📜 Недавние записи</h3>
@@ -344,7 +302,7 @@
     </div>
 </div>
 
-<!-- ЭКРАН: БЛОКНОТ -->
+<!-- БЛОКНОТ -->
 <div id="notepadScreen" class="screen">
     <div class="card">
         <h3>📓 Мой блокнот</h3>
@@ -357,7 +315,7 @@
     </div>
 </div>
 
-<!-- ЭКРАН: ПРОФИЛЬ -->
+<!-- ПРОФИЛЬ -->
 <div id="profileScreen" class="screen">
     <div class="card">
         <div class="profile-header">
@@ -367,32 +325,18 @@
                     <span>🔥 <span id="profileXP">0</span> XP</span>
                     <span class="level-badge" id="profileLevel">Ур. 1</span>
                 </div>
-                <div class="xp-bar">
-                    <div class="xp-fill" id="profileXpBar"></div>
-                </div>
+                <div class="xp-bar"><div class="xp-fill" id="profileXpBar"></div></div>
             </div>
         </div>
-        <div class="stat-row">
-            <span>📅 Серия активности:</span>
-            <span><span id="streakCount">0</span> дней 🔥</span>
-        </div>
-        <div class="stat-row">
-            <span>📆 Всего активных дней:</span>
-            <span><span id="totalActiveDays">0</span> дней</span>
-        </div>
-        <div class="stat-row">
-            <span>📝 Всего заданий:</span>
-            <span><span id="totalTasks">0</span></span>
-        </div>
+        <div class="stat-row"><span>📅 Серия активности:</span><span id="streakCount">0</span> дней 🔥</div>
+        <div class="stat-row"><span>📆 Всего активных дней:</span><span id="totalActiveDays">0</span></div>
+        <div class="stat-row"><span>📝 Всего заданий:</span><span id="totalTasks">0</span></div>
     </div>
-    <div class="card">
-        <h3>🏆 Таблица уровней</h3>
-        <div id="levelsTable" style="font-size: 0.7rem; max-height: 250px; overflow-y: auto;"></div>
-    </div>
+    <div class="card"><h3>🏆 Таблица уровней</h3><div id="levelsTable"></div></div>
 </div>
 
 <script>
-    // ========== ТАБЛИЦА УРОВНЕЙ ==========
+    // ========== УРОВНИ ==========
     const levels = [
         { level: 1, name: "Бронзовый ученик", totalXP: 100 },
         { level: 2, name: "Серебряный новичок", totalXP: 300 },
@@ -407,18 +351,31 @@
     ];
 
     // ========== ДАННЫЕ ==========
-    let userXP = 0;
-    let lastVisitDate = "";
-    let streak = 0;
-    let totalActiveDays = 0;
-    let totalTasks = 0;
-    
-    let storage = { cycle: [], attention: [], dispute: [], cards: [], looksmax: [] };
+    let userXP = 0, lastVisitDate = "", streak = 0, totalActiveDays = 0, totalTasks = 0;
+    let storage = { cycle: [], attention: [], dispute: [], cards: [], looksmax: [], diction: [] };
     let notes = [];
-
     let currentMode = "cycle";
 
-    // ========== ЗАГРУЗКА / СОХРАНЕНИЕ ==========
+    // ========== РАСПИСАНИЕ ДИКЦИИ ПО ДНЯМ ==========
+    function getDictionPlan() {
+        const days = ["воскресенье", "понедельник", "вторник", "среда", "четверг", "пятница", "суббота"];
+        const today = new Date().getDay();
+        const dayName = days[today];
+        
+        const plans = {
+            "понедельник": { warmup: "3 мин (губы + язык + челюсть)", main: "Карандаш + скороговорки", extra: "Шёпот", extraDesc: "Прочитайте предложение громко, потом шёпотом, артикулируя в 2 раза сильнее" },
+            "вторник": { warmup: "3 мин", main: "Карандаш + скороговорки", extra: "Ступеньки громкости", extraDesc: "Скажите фразу: тихо → средне → громко → очень громко" },
+            "среда": { warmup: "3 мин", main: "Только карандаш (5 мин)", extra: "Перерыв", extraDesc: "Отдых, можно просто почитать вслух без нагрузки" },
+            "четверг": { warmup: "3 мин", main: "Карандаш + скороговорки", extra: "Шёпот", extraDesc: "Прочитайте предложение громко, потом шёпотом" },
+            "пятница": { warmup: "3 мин", main: "Карандаш + скороговорки", extra: "Шарики во рту", extraDesc: "Положите за щёки 2-3 леденца и чётко говорите скороговорку" },
+            "суббота": { warmup: "3 мин", main: "Карандаш (5 мин)", extra: "Ступеньки громкости", extraDesc: "Скажите фразу: тихо → средне → громко → очень громко" },
+            "воскресенье": { warmup: "Выходной", main: "Ничего не делать", extra: "Можно почитать вслух", extraDesc: "Отдых, но если хочется — почитайте книгу вслух 5 минут" }
+        };
+        
+        return { dayName, plan: plans[dayName] };
+    }
+
+    // ========== ЗАГРУЗКА ==========
     function loadAll() {
         userXP = parseInt(localStorage.getItem("userXP") || "0");
         lastVisitDate = localStorage.getItem("lastVisitDate") || "";
@@ -426,8 +383,7 @@
         totalActiveDays = parseInt(localStorage.getItem("totalActiveDays") || "0");
         totalTasks = parseInt(localStorage.getItem("totalTasks") || "0");
         
-        const keys = ["cycle", "attention", "dispute", "cards", "looksmax"];
-        for (let k of keys) {
+        for (let k of ["cycle", "attention", "dispute", "cards", "looksmax", "diction"]) {
             let raw = localStorage.getItem(`cbt_${k}`);
             storage[k] = raw ? JSON.parse(raw) : [];
         }
@@ -448,25 +404,18 @@
         }
     }
 
-    // ========== СИСТЕМА СЕРИЙ ==========
     function updateStreak() {
         const today = new Date().toDateString();
         if (lastVisitDate !== today) {
-            const yesterday = new Date();
-            yesterday.setDate(yesterday.getDate() - 1);
-            if (lastVisitDate === yesterday.toDateString()) {
-                streak++;
-            } else {
-                streak = 1;
-            }
+            const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
+            if (lastVisitDate === yesterday.toDateString()) streak++;
+            else streak = 1;
             lastVisitDate = today;
             totalActiveDays++;
             saveAll();
-            showToast(`🔥 Серия: ${streak} дней!`);
         }
     }
 
-    // ========== ДОБАВЛЕНИЕ XP ==========
     function addXP(amount) {
         userXP += amount;
         totalTasks++;
@@ -474,43 +423,19 @@
         updateStreak();
         updateProfileUI();
         showToast(`+${amount} XP!`);
-        
         const newLevel = getCurrentLevel();
         const oldLevel = getCurrentLevelFromXP(userXP - amount);
-        if (newLevel > oldLevel) {
-            showToast(`🎉 НОВЫЙ УРОВЕНЬ! ${levels[newLevel-1].name} 🎉`, 2000);
-        }
+        if (newLevel > oldLevel) showToast(`🎉 НОВЫЙ УРОВЕНЬ! ${levels[newLevel-1].name} 🎉`, 2000);
     }
 
-    function getCurrentLevel() {
-        let lvl = 1;
-        for (let i = 0; i < levels.length; i++) {
-            if (userXP >= levels[i].totalXP) lvl = levels[i].level;
-        }
-        return lvl;
-    }
-
-    function getCurrentLevelFromXP(xp) {
-        let lvl = 1;
-        for (let i = 0; i < levels.length; i++) {
-            if (xp >= levels[i].totalXP) lvl = levels[i].level;
-        }
-        return lvl;
-    }
-
-    function getXPToNext() {
-        const lvl = getCurrentLevel();
-        if (lvl >= 10) return 0;
-        return levels[lvl].totalXP - userXP;
-    }
-
+    function getCurrentLevel() { let lvl = 1; for (let l of levels) if (userXP >= l.totalXP) lvl = l.level; return lvl; }
+    function getCurrentLevelFromXP(xp) { let lvl = 1; for (let l of levels) if (xp >= l.totalXP) lvl = l.level; return lvl; }
     function getXPInCurrent() {
         const lvl = getCurrentLevel();
         if (lvl === 1) return userXP;
         const prevXP = levels[lvl-2]?.totalXP || 0;
         return userXP - prevXP;
     }
-
     function getXPNeeded() {
         const lvl = getCurrentLevel();
         if (lvl === 1) return 100;
@@ -518,7 +443,6 @@
         return levels[lvl-1].totalXP - prevXP;
     }
 
-    // ========== UI ОБНОВЛЕНИЕ ==========
     function updateProfileUI() {
         const lvl = getCurrentLevel();
         document.getElementById("profileXP").innerText = userXP;
@@ -526,7 +450,6 @@
         document.getElementById("streakCount").innerText = streak;
         document.getElementById("totalActiveDays").innerText = totalActiveDays;
         document.getElementById("totalTasks").innerText = totalTasks;
-        
         const percent = (getXPInCurrent() / getXPNeeded()) * 100;
         document.getElementById("profileXpBar").style.width = `${Math.min(100, percent)}%`;
         
@@ -549,309 +472,193 @@
         setTimeout(() => toast.remove(), duration);
     }
 
-    // ========== ИСТОРИЯ ==========
     function renderHistory() {
         const entries = storage[currentMode];
         const container = document.getElementById("historyList");
-        if (!entries.length) {
-            container.innerHTML = '<div class="empty">✨ Нет записей. Создайте первую</div>';
-            return;
-        }
+        if (!entries.length) { container.innerHTML = '<div class="empty">✨ Нет записей</div>'; return; }
         let html = "";
         for (let e of entries.slice(0, 10)) {
-            if (currentMode === "cycle") {
-                html += `<div class="history-item">📅 ${e.date}<br>📍 ${e.situation || "-"}<br>💭 ${e.thoughts || "-"}</div>`;
-            } else if (currentMode === "attention") {
-                html += `<div class="history-item">📅 ${e.date}<br>🧭 ${e.situation || "-"}<br>🔄 ${e.shift || "-"}</div>`;
-            } else if (currentMode === "dispute") {
-                html += `<div class="history-item">📅 ${e.date}<br>⚡ ${e.thought || "-"}<br>🌱 ${e.newThought || "-"}</div>`;
-            } else if (currentMode === "cards") {
-                html += `<div class="history-item">📅 ${e.date}<br>📇 ${e.front || "-"}<br>🔄 ${e.back || "-"}</div>`;
-            } else if (currentMode === "looksmax") {
-                html += `<div class="history-item">📅 ${e.date}<br>💪 ${e.exercise || "-"}<br>⏱️ ${e.duration || "-"} сек</div>`;
+            if (currentMode === "diction") {
+                html += `<div class="history-item">📅 ${e.date}<br>🗣️ Тренировка дикции<br>✅ Выполнено: ${e.completed}</div>`;
+            } else {
+                html += `<div class="history-item">📅 ${e.date}<br>📝 Запись сохранена</div>`;
             }
         }
         container.innerHTML = html;
     }
 
-    // ========== ТАЙМЕР ДЛЯ ЛУКСМАКСИНГА ==========
-    let timerInterval = null;
-    let currentExerciseIndex = 0;
-    let timerSeconds = 0;
-    let isTiming = false;
-
-    const exercises = [
-        { name: "Глиссер челюсти", desc: "Челюсть выдвинуть вперёд + опустить подбородок к груди", duration: 15, reps: 10 },
-        { name: "Язык к подбородку (как собака)", desc: "Вытянуть язык к подбородку", duration: 10, reps: 8 },
-        { name: "Волна языком по нёбу", desc: "Провести языком по нёбу от зубов к горлу", duration: 12, reps: 12 }
-    ];
-
-    function renderLooksmaxForm() {
+    // ========== ДИКЦИЯ ==========
+    let dictionCompleted = { warmup: false, main: false, extra: false };
+    
+    function renderDictionForm() {
+        const { dayName, plan } = getDictionPlan();
+        const isWeekend = dayName === "воскресенье";
+        
         const container = document.getElementById("formArea");
         container.innerHTML = `
-            <div style="margin-bottom: 16px;">
-                <div style="background: #f0fdf4; padding: 12px; border-radius: 16px; margin-bottom: 16px;">
-                    <h4>⚡ Ключевое правило</h4>
-                    <p style="font-size: 0.85rem;">❌ <strong>Убрать креатин полностью на 3 недели</strong> — без этого упражнения почти бесполезны</p>
+            <div class="today-card" style="background: #fef9e3; padding: 12px; border-radius: 16px; margin-bottom: 16px;">
+                <div>📅 Сегодня: <strong>${dayName}</strong></div>
+                <div>🗣️ ${isWeekend ? "Выходной! Отдыхаем" : "Тренировка дикции"}</div>
+            </div>
+            
+            ${!isWeekend ? `
+                <div class="exercise-item">
+                    <div class="exercise-name">🔥 Разминка (${plan.warmup})</div>
+                    <div class="exercise-desc">• Губы: «Трубочка-улыбка» 10 раз, «Рыбка» 5 сек<br>
+                    • Язык: «Уколы» 10 раз, «Часики» 5 кругов<br>
+                    • Челюсть: открыть-закрыть рот 5 раз</div>
+                    <label class="checkbox-label"><input type="checkbox" id="warmupCheck"> ✅ Выполнил(а)</label>
                 </div>
-                <div id="exerciseList">
-                    ${exercises.map((ex, idx) => `
-                        <div class="exercise-item" data-ex-idx="${idx}">
-                            <div class="exercise-name">${idx+1}. ${ex.name}</div>
-                            <div class="exercise-desc">${ex.desc}</div>
-                            <div class="exercise-desc">🎯 ${ex.reps} повторений, ⏱️ ${ex.duration} сек на повтор</div>
-                        </div>
-                    `).join('')}
-                </div>
-                <div id="timerPanel" style="background: #e2e8f0; border-radius: 20px; padding: 16px; margin: 16px 0; text-align: center;">
-                    <div style="font-weight: bold;" id="currentExerciseName">Глиссер челюсти</div>
-                    <div class="timer-display" id="timerDisplay">00:00</div>
-                    <div class="timer-buttons">
-                        <button id="startTimerBtn" style="background: #22c55e;">▶ Старт</button>
-                        <button id="stopTimerBtn" style="background: #ef4444;">⏹️ Стоп</button>
-                        <button id="nextExerciseBtn" style="background: #3b82f6;">➡️ Следующее</button>
-                    </div>
-                    <div style="margin-top: 12px; font-size: 0.8rem;" id="progressText">Упражнение 1 из 3</div>
-                </div>
-                <button id="saveLooksmaxBtn" style="background: #1e4a76; width: 100%; margin-top: 8px;">💾 Сохранить тренировку (+20 XP)</button>
                 
-                <div style="margin-top: 20px;">
-                    <h4>🚫 Противопоказания и что исключить</h4>
-                    <div class="warning-list">
-                        <div class="warning-item">❌ Креатин (любая форма)</div>
-                        <div class="warning-item">❌ Молочные продукты (молоко, йогурт, сыр, творог)</div>
-                        <div class="warning-item">❌ Скрытый натрий: колбаса, консервы, соевый соус, чипсы</div>
-                        <div class="warning-item">❌ Белый сахар, сладкая газировка, сдоба</div>
-                        <div class="warning-item">❌ Омега-3 в капсулах — заменить на рыбу (скумбрия, сардины)</div>
-                    </div>
-                    <h4 style="margin-top: 12px;">✅ Что делать</h4>
-                    <div class="warning-list" style="background: #f0fdf4;">
-                        <div class="warning-item" style="color: #166534;">✔️ Спать на низкой подушке (6–8 см)</div>
-                        <div class="warning-item" style="color: #166534;">✔️ Соль не более 3 г/сутки</div>
-                        <div class="warning-item" style="color: #166534;">✔️ Упражнения каждый день по 5 минут</div>
-                    </div>
+                <div class="exercise-item">
+                    <div class="exercise-name">📖 Основное: ${plan.main}</div>
+                    <div class="exercise-desc">${plan.main.includes("Карандаш") ? "Зажмите пробку/карандаш зубами и читайте вслух 2-3 минуты. После выньте — голос станет чётче." : ""}
+                    ${plan.main.includes("скороговорки") ? "Скороговорки: «От топота копыт», «Бык тупогуб», «Кукушка кукушонку». Каждую медленно, потом быстрее." : ""}</div>
+                    <label class="checkbox-label"><input type="checkbox" id="mainCheck"> ✅ Выполнил(а)</label>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-name">✨ Дополнительно: ${plan.extra}</div>
+                    <div class="exercise-desc">${plan.extraDesc}</div>
+                    ${plan.extra !== "Перерыв" ? `<label class="checkbox-label"><input type="checkbox" id="extraCheck"> ✅ Выполнил(а)</label>` : `<div style="color: #22c55e;">😌 Сегодня перерыв, отдохни</div>`}
+                </div>
+                
+                <button id="saveDictionBtn" style="width: 100%; margin-top: 16px;">💾 Сохранить тренировку (+20 XP)</button>
+            ` : `
+                <div class="exercise-item" style="background: #e8f5e9;">
+                    <div class="exercise-name">😌 Воскресенье — выходной</div>
+                    <div class="exercise-desc">Можно почитать книгу вслух 5 минут для удовольствия</div>
+                    <button id="saveDictionBtn" style="width: 100%; margin-top: 16px;">📖 Отметить чтение (+10 XP)</button>
+                </div>
+            `}
+            
+            <div style="margin-top: 16px;">
+                <h4>📝 Скороговорки на сегодня</h4>
+                <div class="warning-list" style="background: #f0f9ff;">
+                    <div class="warning-item" style="color: #1e4a76;">• «От топота копыт пыль по полю летит»</div>
+                    <div class="warning-item" style="color: #1e4a76;">• «Бык тупогуб, тупогубенький бычок»</div>
+                    <div class="warning-item" style="color: #1e4a76;">• «Кукушка кукушонку купила капюшон»</div>
                 </div>
             </div>
         `;
-
-        // Таймер
-        let currentTimerSeconds = exercises[0].duration;
-        let currentExerciseIdx = 0;
-        const timerDisplay = document.getElementById("timerDisplay");
-        const currentExerciseNameSpan = document.getElementById("currentExerciseName");
-        const progressSpan = document.getElementById("progressText");
-
-        function updateTimerDisplay() {
-            const mins = Math.floor(currentTimerSeconds / 60);
-            const secs = currentTimerSeconds % 60;
-            timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        function stopTimer() {
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-            }
-            isTiming = false;
-        }
-
-        function startTimer() {
-            if (timerInterval) stopTimer();
-            isTiming = true;
-            timerInterval = setInterval(() => {
-                if (currentTimerSeconds <= 0) {
-                    stopTimer();
-                    showToast(`✅ ${exercises[currentExerciseIdx].name} выполнено!`);
-                    // Автоматически перейти к следующему
-                    if (currentExerciseIdx + 1 < exercises.length) {
-                        setTimeout(() => {
-                            nextExercise();
-                        }, 1000);
-                    } else {
-                        showToast("🎉 Тренировка завершена!", 2000);
-                    }
-                } else {
-                    currentTimerSeconds--;
-                    updateTimerDisplay();
+        
+        if (!isWeekend) {
+            document.getElementById("saveDictionBtn")?.addEventListener("click", () => {
+                const warmup = document.getElementById("warmupCheck")?.checked || false;
+                const main = document.getElementById("mainCheck")?.checked || false;
+                const extra = document.getElementById("extraCheck")?.checked || false;
+                const completed = [];
+                if (warmup) completed.push("разминка");
+                if (main) completed.push("основное");
+                if (extra) completed.push("дополнительно");
+                
+                if (completed.length === 0) {
+                    alert("Отметьте хотя бы одно выполненное упражнение");
+                    return;
                 }
-            }, 1000);
-        }
-
-        function nextExercise() {
-            if (currentExerciseIdx + 1 < exercises.length) {
-                currentExerciseIdx++;
-                currentTimerSeconds = exercises[currentExerciseIdx].duration;
-                currentExerciseNameSpan.textContent = exercises[currentExerciseIdx].name;
-                progressSpan.textContent = `Упражнение ${currentExerciseIdx+1} из ${exercises.length}`;
-                updateTimerDisplay();
-                stopTimer();
-                showToast(`➡️ ${exercises[currentExerciseIdx].name}`, 1000);
-            } else {
-                showToast("🏆 Ты выполнил все упражнения! Молодец!", 1500);
-            }
-        }
-
-        function resetToExercise(idx) {
-            currentExerciseIdx = idx;
-            currentTimerSeconds = exercises[idx].duration;
-            currentExerciseNameSpan.textContent = exercises[idx].name;
-            progressSpan.textContent = `Упражнение ${idx+1} из ${exercises.length}`;
-            updateTimerDisplay();
-            stopTimer();
-        }
-
-        document.getElementById("startTimerBtn")?.addEventListener("click", startTimer);
-        document.getElementById("stopTimerBtn")?.addEventListener("click", stopTimer);
-        document.getElementById("nextExerciseBtn")?.addEventListener("click", nextExercise);
-
-        // Сохранение тренировки
-        document.getElementById("saveLooksmaxBtn")?.addEventListener("click", () => {
-            storage.looksmax.unshift({
-                id: Date.now(),
-                date: new Date().toLocaleString(),
-                exercise: "Комплекс упражнений",
-                duration: "выполнено"
+                
+                storage.diction.unshift({
+                    id: Date.now(),
+                    date: new Date().toLocaleString(),
+                    completed: completed.join(", "),
+                    day: dayName
+                });
+                localStorage.setItem("cbt_diction", JSON.stringify(storage.diction));
+                addXP(20);
+                renderHistory();
+                showToast(`🗣️ +20 XP! Выполнено: ${completed.join(", ")}`);
+                
+                // Сброс чекбоксов
+                document.getElementById("warmupCheck").checked = false;
+                document.getElementById("mainCheck").checked = false;
+                if (document.getElementById("extraCheck")) document.getElementById("extraCheck").checked = false;
             });
-            localStorage.setItem(`cbt_looksmax`, JSON.stringify(storage.looksmax));
+        } else {
+            document.getElementById("saveDictionBtn")?.addEventListener("click", () => {
+                storage.diction.unshift({
+                    id: Date.now(),
+                    date: new Date().toLocaleString(),
+                    completed: "чтение вслух (выходной)",
+                    day: "воскресенье"
+                });
+                localStorage.setItem("cbt_diction", JSON.stringify(storage.diction));
+                addXP(10);
+                renderHistory();
+                showToast("📖 +10 XP! Хорошего отдыха");
+            });
+        }
+    }
+
+    // ========== ЛУКСМАКСИНГ ==========
+    function renderLooksmaxForm() {
+        const container = document.getElementById("formArea");
+        container.innerHTML = `
+            <div class="warning-list" style="margin-bottom: 16px;">
+                <div class="warning-item">⚡ Убрать креатин на 3 недели — ключевое правило</div>
+            </div>
+            <div class="exercise-item"><div class="exercise-name">1. Глиссер челюсти</div><div class="exercise-desc">Челюсть выдвинуть вперёд + опустить подбородок к груди. 10 раз</div></div>
+            <div class="exercise-item"><div class="exercise-name">2. Язык к подбородку</div><div class="exercise-desc">Вытянуть язык к подбородку. 8 раз, удержание 10 сек</div></div>
+            <div class="exercise-item"><div class="exercise-name">3. Волна языком по нёбу</div><div class="exercise-desc">Провести языком по нёбу от зубов к горлу. 12 раз</div></div>
+            <button id="saveLooksmaxBtn">💾 Сохранить тренировку (+20 XP)</button>
+            <div style="margin-top: 16px;"><h4>🚫 Противопоказания</h4><div class="warning-list"><div class="warning-item">❌ Креатин, молочка, скрытый натрий, белый сахар</div></div></div>
+        `;
+        document.getElementById("saveLooksmaxBtn")?.addEventListener("click", () => {
+            storage.looksmax.unshift({ id: Date.now(), date: new Date().toLocaleString(), exercise: "комплекс" });
+            localStorage.setItem("cbt_looksmax", JSON.stringify(storage.looksmax));
             addXP(20);
             renderHistory();
-            showToast("💪 Тренировка сохранена! +20 XP");
+            showToast("💪 +20 XP");
         });
     }
 
-    // ========== ФОРМЫ ==========
+    // ========== ОСТАЛЬНЫЕ ФОРМЫ ==========
     function renderForm() {
+        if (currentMode === "looksmax") { renderLooksmaxForm(); return; }
+        if (currentMode === "diction") { renderDictionForm(); return; }
+        
         const container = document.getElementById("formArea");
-        
-        if (currentMode === "looksmax") {
-            renderLooksmaxForm();
-            return;
-        }
-        
         if (currentMode === "cycle") {
-            container.innerHTML = `
-                <input type="text" id="situation" placeholder="Ситуация (где, когда, с кем)">
-                <textarea id="thoughts" placeholder="Тревожные мысли"></textarea>
-                <textarea id="inner" placeholder="Внимание внутрь"></textarea>
-                <textarea id="behavior" placeholder="Защитное поведение"></textarea>
-                <textarea id="outcome" placeholder="Итог"></textarea>
-                <button id="saveBtn">💾 Сохранить (+20 XP)</button>
-            `;
+            container.innerHTML = `<input type="text" id="situation" placeholder="Ситуация"><textarea id="thoughts" placeholder="Тревожные мысли"></textarea><textarea id="inner" placeholder="Внимание внутрь"></textarea><textarea id="behavior" placeholder="Защитное поведение"></textarea><textarea id="outcome" placeholder="Итог"></textarea><button id="saveBtn">💾 Сохранить (+20 XP)</button>`;
         } else if (currentMode === "attention") {
-            container.innerHTML = `
-                <input type="text" id="situation" placeholder="Ситуация">
-                <textarea id="innerFocus" placeholder="Внутренний фокус"></textarea>
-                <textarea id="outerFocus" placeholder="Внешний фокус"></textarea>
-                <textarea id="shift" placeholder="Что изменилось"></textarea>
-                <button id="saveBtn">💾 Сохранить (+20 XP)</button>
-            `;
+            container.innerHTML = `<input type="text" id="situation" placeholder="Ситуация"><textarea id="innerFocus" placeholder="Внутренний фокус"></textarea><textarea id="outerFocus" placeholder="Внешний фокус"></textarea><textarea id="shift" placeholder="Что изменилось"></textarea><button id="saveBtn">💾 Сохранить (+20 XP)</button>`;
         } else if (currentMode === "dispute") {
-            container.innerHTML = `
-                <textarea id="thought" placeholder="Мысль"></textarea>
-                <input type="text" id="distortion" placeholder="Искажение">
-                <textarea id="questions" placeholder="Вопросы оспаривания"></textarea>
-                <textarea id="newThought" placeholder="Новая мысль"></textarea>
-                <button id="saveBtn">💾 Сохранить (+20 XP)</button>
-            `;
+            container.innerHTML = `<textarea id="thought" placeholder="Мысль"></textarea><input type="text" id="distortion" placeholder="Искажение"><textarea id="questions" placeholder="Вопросы оспаривания"></textarea><textarea id="newThought" placeholder="Новая мысль"></textarea><button id="saveBtn">💾 Сохранить (+20 XP)</button>`;
         } else if (currentMode === "cards") {
-            container.innerHTML = `
-                <textarea id="front" placeholder="Лицевая сторона (мысль/вопрос)"></textarea>
-                <textarea id="back" placeholder="Обратная сторона (альтернатива)"></textarea>
-                <button id="saveBtn">➕ Добавить карточку (+20 XP)</button>
-            `;
+            container.innerHTML = `<textarea id="front" placeholder="Лицевая сторона"></textarea><textarea id="back" placeholder="Обратная сторона"></textarea><button id="saveBtn">➕ Добавить карточку (+20 XP)</button>`;
         }
         
-        if (currentMode !== "looksmax") {
-            document.getElementById("saveBtn")?.addEventListener("click", saveEntry);
-        }
-    }
-
-    function saveEntry() {
-        let data = {};
-        if (currentMode === "cycle") {
-            data = {
-                situation: document.getElementById("situation")?.value || "",
-                thoughts: document.getElementById("thoughts")?.value || "",
-                inner: document.getElementById("inner")?.value || "",
-                behavior: document.getElementById("behavior")?.value || "",
-                outcome: document.getElementById("outcome")?.value || ""
-            };
-        } else if (currentMode === "attention") {
-            data = {
-                situation: document.getElementById("situation")?.value || "",
-                innerFocus: document.getElementById("innerFocus")?.value || "",
-                outerFocus: document.getElementById("outerFocus")?.value || "",
-                shift: document.getElementById("shift")?.value || ""
-            };
-        } else if (currentMode === "dispute") {
-            data = {
-                thought: document.getElementById("thought")?.value || "",
-                distortion: document.getElementById("distortion")?.value || "",
-                questions: document.getElementById("questions")?.value || "",
-                newThought: document.getElementById("newThought")?.value || ""
-            };
-        } else if (currentMode === "cards") {
-            data = {
-                front: document.getElementById("front")?.value || "",
-                back: document.getElementById("back")?.value || ""
-            };
-        }
-        
-        const hasData = Object.values(data).some(v => v.trim());
-        if (!hasData) return alert("Заполните хотя бы одно поле");
-        
-        storage[currentMode].unshift({ id: Date.now(), date: new Date().toLocaleString(), ...data });
-        localStorage.setItem(`cbt_${currentMode}`, JSON.stringify(storage[currentMode]));
-        
-        addXP(20);
-        renderHistory();
-        renderForm();
-        
-        document.querySelectorAll("#formArea input, #formArea textarea").forEach(f => f.value = "");
+        document.getElementById("saveBtn")?.addEventListener("click", () => {
+            let data = {};
+            if (currentMode === "cycle") data = { situation: document.getElementById("situation")?.value, thoughts: document.getElementById("thoughts")?.value, inner: document.getElementById("inner")?.value, behavior: document.getElementById("behavior")?.value, outcome: document.getElementById("outcome")?.value };
+            else if (currentMode === "attention") data = { situation: document.getElementById("situation")?.value, innerFocus: document.getElementById("innerFocus")?.value, outerFocus: document.getElementById("outerFocus")?.value, shift: document.getElementById("shift")?.value };
+            else if (currentMode === "dispute") data = { thought: document.getElementById("thought")?.value, distortion: document.getElementById("distortion")?.value, questions: document.getElementById("questions")?.value, newThought: document.getElementById("newThought")?.value };
+            else if (currentMode === "cards") data = { front: document.getElementById("front")?.value, back: document.getElementById("back")?.value };
+            
+            if (!Object.values(data).some(v => v?.trim())) return alert("Заполните хотя бы одно поле");
+            storage[currentMode].unshift({ id: Date.now(), date: new Date().toLocaleString(), ...data });
+            localStorage.setItem(`cbt_${currentMode}`, JSON.stringify(storage[currentMode]));
+            addXP(20);
+            renderHistory();
+            document.querySelectorAll("#formArea input, #formArea textarea").forEach(f => f.value = "");
+        });
     }
 
     // ========== БЛОКНОТ ==========
     function renderNotes() {
         const container = document.getElementById("notesList");
-        if (!notes.length) {
-            container.innerHTML = '<div class="empty">📭 Нет заметок. Добавьте первую</div>';
-            return;
-        }
+        if (!notes.length) { container.innerHTML = '<div class="empty">📭 Нет заметок</div>'; return; }
         let html = "";
         for (let i = 0; i < notes.length; i++) {
-            html += `
-                <div class="note-item">
-                    <span>📝 ${escapeHtml(notes[i])}</span>
-                    <button class="delete-note" data-index="${i}">🗑️</button>
-                </div>
-            `;
+            html += `<div class="note-item"><span>📝 ${escapeHtml(notes[i])}</span><button class="delete-note" data-index="${i}">🗑️</button></div>`;
         }
         container.innerHTML = html;
         document.querySelectorAll(".delete-note").forEach(btn => {
-            btn.addEventListener("click", (e) => {
-                const idx = parseInt(btn.dataset.index);
-                notes.splice(idx, 1);
-                saveAll();
-                renderNotes();
-            });
+            btn.addEventListener("click", () => { notes.splice(parseInt(btn.dataset.index), 1); saveAll(); renderNotes(); });
         });
     }
 
-    function addNote() {
-        const input = document.getElementById("noteInput");
-        if (input.value.trim()) {
-            notes.unshift(input.value.trim());
-            saveAll();
-            renderNotes();
-            input.value = "";
-            showToast("📌 Заметка сохранена");
-        }
-    }
-
-    function escapeHtml(str) {
-        if (!str) return "";
-        return str.replace(/[&<>]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[m]));
-    }
+    function addNote() { const input = document.getElementById("noteInput"); if (input.value.trim()) { notes.unshift(input.value.trim()); saveAll(); renderNotes(); input.value = ""; showToast("📌 Заметка сохранена"); } }
+    function escapeHtml(str) { if (!str) return ""; return str.replace(/[&<>]/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[m])); }
 
     // ========== НАВИГАЦИЯ ==========
     function switchScreen(screenId) {
@@ -859,7 +666,6 @@
         document.getElementById(`${screenId}Screen`).classList.add("active");
         document.querySelectorAll(".nav-item").forEach(btn => btn.classList.remove("active"));
         document.querySelector(`.nav-item[data-screen="${screenId}"]`).classList.add("active");
-        
         if (screenId === "profile") updateProfileUI();
         if (screenId === "notepad") renderNotes();
         if (screenId === "main") renderHistory();
@@ -872,11 +678,8 @@
     renderHistory();
     updateProfileUI();
     renderNotes();
-    
-    document.querySelectorAll(".nav-item").forEach(btn => {
-        btn.addEventListener("click", () => switchScreen(btn.dataset.screen));
-    });
-    
+
+    document.querySelectorAll(".nav-item").forEach(btn => btn.addEventListener("click", () => switchScreen(btn.dataset.screen)));
     document.querySelectorAll(".mode-tab").forEach(btn => {
         btn.addEventListener("click", () => {
             document.querySelectorAll(".mode-tab").forEach(b => b.classList.remove("active"));
@@ -886,7 +689,6 @@
             renderHistory();
         });
     });
-    
     document.getElementById("addNoteBtn")?.addEventListener("click", addNote);
 </script>
 </body>
